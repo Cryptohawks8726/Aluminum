@@ -1,9 +1,9 @@
 import 'package:driver_dashboard/ntcore/instance.dart';
-import 'package:driver_dashboard/ntcore/values.dart';
 
-/* 
+/*
 update port number and server name for irl testing
 localhost:5810 can be used for testing w/ robot sim (unless you're on mac ;-;)
+TODO: Add toggleable option in dashboard for this
   */
 final NTInstance inst = NTInstance()..updateServerNamePort("localhost", 5810);
 
