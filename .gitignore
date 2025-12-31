@@ -46,3 +46,4 @@ app.*.map.json
 
 # NTCore libraries
 *ntcoreffi*
+.vscode/settings.json

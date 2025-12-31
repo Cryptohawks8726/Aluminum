@@ -1,10 +1,20 @@
+// for network tables
 import 'package:driver_dashboard/ntcore/instance.dart';
 import 'package:driver_dashboard/ntcore/values.dart';
+import 'package:driver_dashboard/NTReferences.dart';
+
+import 'package:driver_dashboard/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
+
 void main() {
-  runApp(const MyApp());
+  // the dashboard currently does not implement the api
+  // it is simply a layout
+  runApp(const DriverDashboard());
 }
+
+
+// KEEPING AS A REFRENCE FOR API //
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -56,17 +66,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  final NTInstance inst = NTInstance()..updateServerNamePort("localhost", 5810);
-  late final NTValueNotifier gameTimeNotifier = NTValueNotifier.fromName(
-    valueName: "/SmartDashboard/gameTime",
-    inst: inst,
-  );
-  late final NTValueNotifier stateNotifier = NTValueNotifier.fromName(
-    valueName: "/SmartDashboard/currentState",
-    inst: inst,
-  );
 
+  // old reference code //
+
+  ////////////////////////////////////
+  //int _counter = 0; unused!!!!!!
+  
+  // final NTInstance inst = NTInstance()..updateServerNamePort("localhost", 5810);
+  // late final NTValueNotifier gameTimeNotifier = NTValueNotifier.fromName(
+  //   valueName: "/SmartDashboard/gameTime",
+  //   inst: inst,
+  // );
+  // late final NTValueNotifier stateNotifier = NTValueNotifier.fromName(
+  //   valueName: "/SmartDashboard/currentState",
+  //   inst: inst,
+  // );
+  /////////////////////////////////////
+  
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -74,7 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      
+      //_counter++;
     });
   }
 
