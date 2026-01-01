@@ -26,10 +26,10 @@ class _Default2CamDashboardState extends State<Default2CamDashboard> {
           children: [
             // limelight cameras are 4:3 aspect ratio
             MjpegView(
-                width: 480,
-                height: 360,
-                errorWidget: cameraErrorWidget,
-                uri: llCamUrls[0] ?? 'http://webcam01.ecn.purdue.edu/mjpg/video.mjpg',
+                //width: 480,
+                //height: 360,
+                ///errorWidget: cameraErrorWidget,
+                uri: 'http://61.211.241.239/nphMotionJpeg?Resolution=320x240&Quality=Standard',
               ),
 
             MjpegView(
