@@ -57,8 +57,7 @@ class _DriverDashboardState extends State<DriverDashboard> {
         // TODO: add navigation buttons and stuff surrounding the main dashboard widget
         body: Container(
           // container for screens
-          padding: EdgeInsets.all(30),
-
+          // padding: EdgeInsets.all(30),
           child: pageList[selectedIndex].page,
         ),
 
@@ -74,7 +73,7 @@ class _DriverDashboardState extends State<DriverDashboard> {
         endDrawer: NavigationDrawer(
           selectedIndex: selectedIndex,
           children: pageList
-              .map((var page) {
+              .map<Widget>((var page) {
                 return NavigationDrawerDestination(
                   label: Text(page.name),
                   icon: page.icon,
