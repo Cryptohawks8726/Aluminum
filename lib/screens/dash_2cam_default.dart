@@ -4,7 +4,6 @@ import 'package:mjpeg_view/mjpeg_view.dart';
 import 'package:driver_dashboard/util.dart';
 import 'package:flutter/material.dart';
 
-
 class Default2CamDashboard extends StatefulWidget {
   const Default2CamDashboard({super.key});
 
@@ -13,7 +12,6 @@ class Default2CamDashboard extends StatefulWidget {
 }
 
 class _Default2CamDashboardState extends State<Default2CamDashboard> {
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -26,17 +24,20 @@ class _Default2CamDashboardState extends State<Default2CamDashboard> {
           children: [
             // limelight cameras are 4:3 aspect ratio
             MjpegView(
-                //width: 480,
-                //height: 360,
-                ///errorWidget: cameraErrorWidget,
-                uri: 'http://61.211.241.239/nphMotionJpeg?Resolution=320x240&Quality=Standard',
-              ),
+              //width: 480,
+              //height: 360,
+              ///errorWidget: cameraErrorWidget,
+              uri:
+                  'http://61.211.241.239/nphMotionJpeg?Resolution=320x240&Quality=Standard',
+            ),
 
             MjpegView(
               width: 480,
               height: 360,
               errorWidget: cameraErrorWidget,
-              uri: llCamUrls[1] ?? 'http://webcam01.ecn.purdue.edu/mjpg/video.mjpg',
+              uri:
+                  llCamUrls[1] ??
+                  'http://webcam01.ecn.purdue.edu/mjpg/video.mjpg',
             ),
           ],
         ),
@@ -57,7 +58,7 @@ class _Default2CamDashboardState extends State<Default2CamDashboard> {
                 color: Colors.green,
                 borderRadius: BorderRadius.all(Radius.circular(40)),
               ),
-              
+
               // timer text
               child: ListenableBuilder(
                 listenable: gameTimeNotifier,
@@ -78,7 +79,6 @@ class _Default2CamDashboardState extends State<Default2CamDashboard> {
                   );
                 },
               ),
-
             ),
 
             // labels
@@ -92,11 +92,10 @@ class _Default2CamDashboardState extends State<Default2CamDashboard> {
             ),
 
             // field view
-            Container(
-              color: Colors.blueGrey,
+            Image(
               width: 623,
               height: 350,
-              child: Text("fled viw"),
+              image: AssetImage('images/2025-field.png'),
             ),
           ],
         ),

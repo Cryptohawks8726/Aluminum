@@ -1,5 +1,4 @@
 import 'package:driver_dashboard/screens/dash_2cam_default.dart';
-import 'package:driver_dashboard/util.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -56,7 +55,8 @@ class _DriverDashboardState extends State<DriverDashboard> {
         key: scaffoldKey,
 
         // TODO: add navigation buttons and stuff surrounding the main dashboard widget
-        body: Container( // container for screens
+        body: Container(
+          // container for screens
           padding: EdgeInsets.all(30),
 
           child: pageList[selectedIndex].page,
@@ -81,7 +81,7 @@ class _DriverDashboardState extends State<DriverDashboard> {
                 );
               })
               .toList(growable: false),
-            
+
           onDestinationSelected: (int idx) {
             setState(() {
               selectedIndex = idx;
