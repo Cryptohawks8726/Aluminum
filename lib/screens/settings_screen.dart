@@ -48,6 +48,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  void loadJSON(BuildContext context) async {
+    var files = await FilePicker.platform.pickFiles(
+      dialogTitle: 'Save Dashboard Settings',
+      type: FileType.custom,
+      allowedExtensions: ['json'],
+    );
+    if (files != null && files.paths.isNotEmpty) {
+      if (Settings.tryLoadSettingsFromJSON(files.paths.first!)) {
+        setState(() {
+          instanceCopy = Settings.copyInstance();
+          teamNumberController.text = instanceCopy.teamNumber.toString();
+          portController.text = instanceCopy.port.toString();
+          serverNameController.text = instanceCopy.serverName;
+          for (int i = 0; i < cameraControllers.length; i++) {
+            cameraControllers[i].text = instanceCopy.cameraURLs[i];
+          }
+        });
+      }
+    }
+  }
+
+  void exportJSON(BuildContext context) async {
+    if (!save(context)) {
+      return;
+    }
+
+    var path = await FilePicker.platform.saveFile(
+      dialogTitle: 'Save Dashboard Settings',
+      type: FileType.custom,
+      allowedExtensions: ['.json'],
+    );
+    if (path != null) {
+      Settings.exportJSONSettings(path);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -80,54 +116,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Text('Save Changes'),
                       ),
                       FilledButton(
-                        onPressed: () async {
-                          if (!save(context)) {
-                            return;
-                          }
-
-                          var path = await FilePickerLinux().saveFile(
-                            dialogTitle: 'Save Dashboard Settings',
-                            type: FileType.custom,
-                            allowedExtensions: ['.json'],
-                          );
-                          if (path != null) {
-                            Settings.exportJSONSettings(path);
-                          }
-                        },
+                        onPressed: () => exportJSON(context),
                         child: Text('Export as JSON'),
                       ),
                       FilledButton(
-                        onPressed: () async {
-                          var files = await FilePickerLinux().pickFiles(
-                            dialogTitle: 'Save Dashboard Settings',
-                            type: FileType.custom,
-                            allowedExtensions: ['json'],
-                          );
-                          if (files != null && files.paths.isNotEmpty) {
-                            if (Settings.tryLoadSettingsFromJSON(
-                              files.paths.first!,
-                            )) {
-                              setState(() {
-                                instanceCopy = Settings.copyInstance();
-                                teamNumberController.text = instanceCopy
-                                    .teamNumber
-                                    .toString();
-                                portController.text = instanceCopy.port
-                                    .toString();
-                                serverNameController.text =
-                                    instanceCopy.serverName;
-                                for (
-                                  int i = 0;
-                                  i < cameraControllers.length;
-                                  i++
-                                ) {
-                                  cameraControllers[i].text =
-                                      instanceCopy.cameraURLs[i];
-                                }
-                              });
-                            }
-                          }
-                        },
+                        onPressed: () => loadJSON(context),
                         child: Text('Load from JSON'),
                       ),
                     ],
