@@ -22,7 +22,7 @@ class _DebugScreenState extends State<DebugScreen> {
         spacing: 20,
         children: [
           PIDContainer(),
-          PIDContainer(),
+          //PIDContainer(),
         ]
       ),
     );
@@ -38,8 +38,27 @@ class PIDContainer extends StatefulWidget {
 }
 
 class _PIDContainerState extends State<PIDContainer> {
+  PID myPID = PID(); //pval: 0, ival: 0, dval: 0);
 
-  PID myPID = PID(pval: 0, ival: 0, dval: 0);
+  late TextEditingController tcontrol;
+  String tempText = "";
+
+  void refreshText() => setState(() {
+      tempText = "Current PID Values: ${myPID.p}, ${myPID.i}, ${myPID.d}";
+    });
+
+  @override
+  void initState() {
+    super.initState();
+    tcontrol = TextEditingController();
+    refreshText();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    tcontrol.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +71,22 @@ class _PIDContainerState extends State<PIDContainer> {
       child: Column(
         spacing: 10,
         children: [
+          TextField(
+            decoration: InputDecoration(
+              label: Text("Kp:"),
+            ),
+          ),
           Row(
             mainAxisAlignment: .center,
 
             children: [
             Text("Kp:"),
             SizedBox(width: 20,),
-            Text(myPID.p.toString()),
+            //TextFormField()
+            //TextField(
+              //controller: tcontrol,
+              //onSubmitted: (value) => myPID.p,
+            //),
             ],
           ),
 

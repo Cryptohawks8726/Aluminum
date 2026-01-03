@@ -9,9 +9,9 @@ String formatTime({required int timeInSeconds}) {
 
 // may or may not be used idk yet - ismail
 class PID {
-  double pval, ival, dval;
+  double pval = 0, ival = 0, dval = 0;
 
-  PID({required this.pval, required this.ival, required this.dval});
+  //PID({required this.pval, required this.ival, required this.dval});
 
   double get p => pval; double get i => ival; double get d => dval;
   set p(double p) => pval = p;
