@@ -1,6 +1,9 @@
 import 'package:mjpeg_view/mjpeg_view.dart';
 import 'package:driver_dashboard/util.dart';
 import 'package:flutter/material.dart';
+import 'package:driver_dashboard/ntcore/instance.dart';
+import 'package:driver_dashboard/ntcore/values.dart';
+import 'dart:math';
 
 class Default2CamDashboard extends StatefulWidget {
   const Default2CamDashboard({super.key});
@@ -10,6 +13,31 @@ class Default2CamDashboard extends StatefulWidget {
 }
 
 class _Default2CamDashboardState extends State<Default2CamDashboard> {
+  @override
+    // NetworkTables instance for robot pose
+  late final NTInstance _ntInstance;
+  late final NTValueNotifier _robotX;
+  late final NTValueNotifier _robotY;
+  late final NTValueNotifier _robotHeading;
+
+  @override
+  void initState() {
+    super.initState();
+    _ntInstance = NTInstance(teamNumber: 8726);
+    _robotX = NTValueNotifier.fromName(
+      valueName: '/robot/x',
+      inst: _ntInstance,
+    );
+    _robotY = NTValueNotifier.fromName(
+      valueName: '/robot/y',
+      inst: _ntInstance,
+    );
+    _robotHeading = NTValueNotifier.fromName(
+      valueName: '/robot/heading',
+      inst: _ntInstance,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -107,11 +135,41 @@ class _Default2CamDashboardState extends State<Default2CamDashboard> {
                       ),
                     ],
                   ),
-                  // field view (TODO: Switch for proper field view widget)
-                  Expanded(
-                    flex: 2,
-                    child: Image(image: AssetImage('images/2025-field.png')),
-                  ),
+                  // field view with robot overlay
+              Expanded(
+                flex: 2,
+                child: AnimatedBuilder(
+                  animation: Listenable.merge([_robotX, _robotY, _robotHeading]),
+                  builder: (context, _) {
+                    final x = _robotX.currentValue.asDoubleOrZero();
+                    final y = _robotY.currentValue.asDoubleOrZero();
+                    final headingDeg = _robotHeading.currentValue.asDoubleOrZero();
+                    
+                    return LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Stack(
+                          children: [
+                            // Background field image
+                            Image(
+                              image: AssetImage('images/2025-field.png'),
+                              fit: BoxFit.contain,
+                            ),
+                            // Robot overlay
+                            CustomPaint(
+                              size: Size(constraints.maxWidth, constraints.maxHeight),
+                              painter: RobotFieldPainter(
+                                xMeters: x,
+                                yMeters: y,
+                                headingDeg: headingDeg,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
 
                   // Lower section under field
                   Expanded(
@@ -367,5 +425,4 @@ class _Default2CamDashboardState extends State<Default2CamDashboard> {
         ],
       ),
     );
-  }
-}
+ 
