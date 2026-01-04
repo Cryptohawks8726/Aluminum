@@ -37,7 +37,7 @@ class _FieldViewWidgetState extends State<FieldViewWidget> {
       if (currentVal is NTDoubleArrayValue) {
         final posArray = currentVal.value;
         robotPosition = [
-          posArray.length > 0 ? posArray[0] : 0.0,
+          posArray.isNotEmpty ? posArray[0] : 0.0,
           posArray.length > 1 ? posArray[1] : 0.0,
           posArray.length > 2 ? posArray[2] : 0.0,
         ];

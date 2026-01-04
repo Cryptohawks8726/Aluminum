@@ -15,6 +15,10 @@ final NTValueNotifier stateNotifier = NTValueNotifier.fromName(
   valueName: "/SmartDashboard/currentState",
   inst: inst,
 );
+final NTValueNotifier valueNotifier = NTValueNotifier.fromName(
+  valueName: "/SmartDashboard/gameTime",
+  inst: inst,
+);
 
 final robotPosNotifier = NTValueNotifier.fromName(
   valueName: '/SmartDashboard/robot2DPosition',

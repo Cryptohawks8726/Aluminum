@@ -1,7 +1,8 @@
+import 'package:driver_dashboard/settings.dart';
 import 'package:flutter/material.dart';
 
 // GENERAL //
-const List<String?> llCamUrls = [null, null];
+final List<String?> llCamUrls = Settings.getCameraURLs;
 
 String formatTime({required int timeInSeconds}) {
   return "${(timeInSeconds / 60).round()}:${timeInSeconds % 60}";
@@ -10,9 +11,7 @@ String formatTime({required int timeInSeconds}) {
 // may or may not be used idk yet - ismail
 class PID {
   double pval = 0, ival = 0, dval = 0;
-
   //PID({required this.pval, required this.ival, required this.dval});
-
   double get p => pval;
   double get i => ival;
   double get d => dval;

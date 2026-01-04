@@ -54,8 +54,9 @@ class _PIDContainerState extends State<PIDContainer> {
         color: Colors.blueGrey,
         borderRadius: BorderRadius.circular(20),
       ),
-      width: 400,
-      height: 350,
+      constraints: BoxConstraints(
+        maxWidth: 500,
+      ),
       padding: EdgeInsets.all(30),
       child: Column(
         spacing: 10,
