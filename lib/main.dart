@@ -69,7 +69,10 @@ class _DriverDashboardState extends State<DriverDashboard> {
           onPressed: () {
             scaffoldKey.currentState?.openEndDrawer();
           },
-          child: const Icon(Icons.menu),
+          child: Padding(
+            padding: EdgeInsetsGeometry.all(4.0),
+            child: Image.asset("images/logo.png"),
+          ),
         ),
 
         // drawer

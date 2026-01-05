@@ -1,7 +1,5 @@
 import 'package:driver_dashboard/ntcore/instance.dart';
-import 'package:driver_dashboard/ntcore/ntcore_structs.dart';
 import 'package:driver_dashboard/ntreferences.dart';
-import 'package:driver_dashboard/util.dart';
 import 'package:driver_dashboard/ntcore/values.dart';
 import "package:driver_dashboard/widgets/pid_container.dart";
 import 'package:flutter/material.dart';
@@ -14,7 +12,6 @@ class DebugScreen extends StatefulWidget {
 }
 
 class _DebugScreenState extends State<DebugScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,24 +25,20 @@ class _DebugScreenState extends State<DebugScreen> {
               spacing: 20,
               children: [
                 const Expanded(child: PIDContainer(title: "Subsystem!!!!!")),
-                const Expanded(child: PIDContainer(title: "Cooler Subsystem B)")),
-              ]
+                const Expanded(
+                  child: PIDContainer(title: "Cooler Subsystem B)"),
+                ),
+              ],
             ),
           ),
 
           VerticalDivider(),
 
-          Expanded(
-            flex: 1,
-            child: NTPrefixDisplay()
-          ),
+          Expanded(flex: 1, child: NTPrefixDisplay()),
 
           VerticalDivider(),
-          
-          Expanded(
-            flex: 3,
-            child: const Placeholder()
-          )
+
+          Expanded(flex: 3, child: const Placeholder()),
         ],
       ),
     );
@@ -59,8 +52,7 @@ class NTPrefixData {
   final NTValueNotifier notifier;
   final String title;
 
-  NTPrefixData({required this.notifier, required this.title,});
-
+  NTPrefixData({required this.notifier, required this.title});
 }
 
 class NTPrefixDisplay extends StatelessWidget {
@@ -79,7 +71,12 @@ class NTPrefixDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ListTile(title: Text("NetworkTables:", style: TextStyle(fontSize: 25, fontWeight: .bold),),),
+        ListTile(
+          title: Text(
+            "NetworkTables:",
+            style: TextStyle(fontSize: 25, fontWeight: .bold),
+          ),
+        ),
         Divider(),
         for (NTPrefixData c in prefixes)
           ListenableBuilder(
@@ -95,7 +92,9 @@ class NTPrefixDisplay extends StatelessWidget {
                 NTBooleanArrayValue(:final value) => value.toString(),
                 NTIntegerArrayValue(:final value) => value.toString(),
                 NTStringArrayValue(:final value) => value.toString(),
-                NTRawValue(:final value) => value.toString(), // "and coop has delivered undercooked salmon"
+                NTRawValue(:final value) =>
+                  value
+                      .toString(), // "and coop has delivered undercooked salmon"
                 _ => 'Unable to Retrieve Data',
               };
               return Text("${c.title}: $s", style: style);
@@ -104,5 +103,4 @@ class NTPrefixDisplay extends StatelessWidget {
       ],
     );
   }
-
 }
