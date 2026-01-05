@@ -23,8 +23,8 @@ class _DebugScreenState extends State<DebugScreen> {
             child: Column(
               spacing: 20,
               children: [
-                const Expanded(child: PIDContainer(title: "Subsystem!!!!!")),
-                const Expanded(
+                 Expanded(child: PIDContainer(title: "Subsystem!!!!!")),
+                 Expanded(
                   child: PIDContainer(title: "Cooler Subsystem B)"),
                 ),
               ],
@@ -61,7 +61,6 @@ class NTPrefixDisplay extends StatelessWidget {
 
   // fill up this section with any new lis
   final List<NTPrefixData> prefixes = <NTPrefixData>[
-    NTPrefixData(notifier: valueNotifier, title: "Placehlolder"),
     NTPrefixData(notifier: gameTimeNotifier, title: "gameTime"),
     NTPrefixData(notifier: stateNotifier, title: "currentState"),
   ];

@@ -11,7 +11,10 @@ String formatTime({required int timeInSeconds}) {
 // may or may not be used idk yet - ismail
 class PID {
   double pval = 0, ival = 0, dval = 0;
-  //PID({required this.pval, required this.ival, required this.dval});
+  // contructor for initializing with values
+  PID.setValues({required this.pval, required this.ival, required this.dval});
+  PID();
+
   double get p => pval;
   double get i => ival;
   double get d => dval;

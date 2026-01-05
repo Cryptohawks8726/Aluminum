@@ -19,13 +19,23 @@ final NTValueNotifier stateNotifier = NTValueNotifier.fromName(
   valueName: "/SmartDashboard/currentState",
   inst: inst,
 );
-// temporary
-final NTValueNotifier valueNotifier = NTValueNotifier.fromName(
-  valueName: "/SmartDashboard/gameTime",
-  inst: inst,
-);
-
 final robotPosNotifier = NTValueNotifier.fromName(
   valueName: '/SmartDashboard/robot2DPosition',
   inst: inst,
 );
+
+class PIDdata {
+  // temporary
+  static final NTValueNotifier PIDvalueNotifierp = NTValueNotifier.fromName(
+    valueName: "/SmartDashboard/PIDController/p",
+    inst: inst,
+  );
+  static final NTValueNotifier PIDvalueNotifieri = NTValueNotifier.fromName(
+    valueName: "/SmartDashboard/PIDController/i",
+    inst: inst,
+  );
+  static NTValueNotifier PIDvalueNotifierd = NTValueNotifier.fromName(
+    valueName: "/SmartDashboard/PIDController/d",
+    inst: inst,
+  );
+}

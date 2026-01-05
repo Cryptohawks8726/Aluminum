@@ -1,10 +1,16 @@
+import 'package:driver_dashboard/ntcore/instance.dart';
 import 'package:driver_dashboard/util.dart';
 import 'package:flutter/material.dart';
 
 class PIDContainer extends StatefulWidget {
   final String title;
+  // [0] -> p
+  // [1] -> i
+  // [2] -> d
+  List<NTValueNotifier>? notifierArray;
 
-  const PIDContainer({required this.title, super.key});
+  PIDContainer({required this.title, super.key});
+  PIDContainer.fromNotifierArray({required this.notifierArray, required this.title, super.key});
 
   @override
   State<PIDContainer> createState() => _PIDContainerState();
@@ -12,6 +18,7 @@ class PIDContainer extends StatefulWidget {
 
 class _PIDContainerState extends State<PIDContainer> {
   // data
+
   // TODO: initialize PID object to have correct values from nt
   PID myPID = PID(); // initializes all to 0.0
   final TextEditingController pcontrol = TextEditingController();
@@ -33,6 +40,8 @@ class _PIDContainerState extends State<PIDContainer> {
   @override
   void initState() {
     super.initState();
+    if (widget.notifierArray != null){}
+
     for (TextEditingController c in controllers) {
       c.text = "0.0";
     }
@@ -79,6 +88,7 @@ class _PIDContainerState extends State<PIDContainer> {
                 myPID.i = double.parse(icontrol.text);
                 myPID.d = double.parse(dcontrol.text);
                 // TODO: send through network tables
+                
               } on FormatException {
                 // when values are not doubles
                 showDialog(
