@@ -1,11 +1,15 @@
 import 'package:driver_dashboard/ntcore/instance.dart';
+import 'package:flutter/foundation.dart';
 
 /*
 update port number and server name for irl testing
 localhost:5810 can be used for testing w/ robot sim (unless you're on mac ;-;)
 TODO: Add toggleable option in dashboard for this
   */
-final NTInstance inst = NTInstance()..updateServerNamePort("localhost", 5810);
+final NTInstance inst = kDebugMode
+    // Connects to localhost in debug mode by default, and in release builds connects to the team by default
+    ? (NTInstance()..updateServerNamePort("localhost", 5810))
+    : NTInstance();
 
 final NTValueNotifier gameTimeNotifier = NTValueNotifier.fromName(
   valueName: "/SmartDashboard/gameTime",

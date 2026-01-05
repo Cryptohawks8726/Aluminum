@@ -189,12 +189,12 @@ class _Default2CamDashboardState extends State<Default2CamDashboard> {
                                 builder: (context, child) {
                                   if (inst.connectionNotifier.isConnected) {
                                     return Icon(
-                                      Icons.cast_connected,
+                                      Icons.wifi_tethering,
                                       color: Colors.green,
                                     );
                                   } else {
                                     return Icon(
-                                      Icons.signal_wifi_connected_no_internet_4,
+                                      Icons.wifi_tethering_error,
                                       color: Colors.red,
                                     );
                                   }

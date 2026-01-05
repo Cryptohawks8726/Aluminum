@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:driver_dashboard/ntreferences.dart';
+import 'package:flutter/foundation.dart';
 
 class Settings {
   /// Global instance of settings containing all of the values.
@@ -45,7 +46,7 @@ class Settings {
   static List<String> get getCameraURLs => _instance.cameraURLs;
 
   // RIO connection settings
-  bool useNamedServer = true;
+  bool useNamedServer = kDebugMode;
   String serverName = 'localhost';
   int teamNumber = 8726;
   int port = 5810;
