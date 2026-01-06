@@ -1,5 +1,5 @@
-import 'package:driver_dashboard/ntcore/values.dart';
-import 'package:driver_dashboard/ntreferences.dart';
+import 'package:aluminum/ntcore/values.dart';
+import 'package:aluminum/ntreferences.dart';
 import 'package:flutter/material.dart';
 
 const Map<String, _StateDescription> _stateDescriptions = {

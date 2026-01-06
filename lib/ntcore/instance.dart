@@ -2,9 +2,9 @@
 import 'dart:async';
 import 'dart:ffi';
 
-import 'package:driver_dashboard/ntcore/abi.dart';
-import 'package:driver_dashboard/ntcore/ntcore_structs.dart';
-import 'package:driver_dashboard/ntcore/values.dart';
+import 'package:aluminum/ntcore/abi.dart';
+import 'package:aluminum/ntcore/ntcore_structs.dart';
+import 'package:aluminum/ntcore/values.dart';
 import 'package:ffi/ffi.dart';
 import 'package:flutter/foundation.dart';
 

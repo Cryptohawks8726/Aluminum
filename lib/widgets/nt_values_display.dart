@@ -1,6 +1,6 @@
-import 'package:driver_dashboard/ntcore/instance.dart';
-import 'package:driver_dashboard/ntcore/values.dart';
-import 'package:driver_dashboard/ntreferences.dart';
+import 'package:aluminum/ntcore/instance.dart';
+import 'package:aluminum/ntcore/values.dart';
+import 'package:aluminum/ntreferences.dart';
 import 'package:flutter/material.dart';
 import 'package:stretch_wrap/stretch_wrap.dart';
 

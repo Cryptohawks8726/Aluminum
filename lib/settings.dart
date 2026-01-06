@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:driver_dashboard/ntreferences.dart';
+import 'package:aluminum/ntreferences.dart';
 import 'package:flutter/foundation.dart';
 
 class Settings {

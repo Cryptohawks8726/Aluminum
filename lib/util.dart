@@ -1,4 +1,4 @@
-import 'package:driver_dashboard/settings.dart';
+import 'package:aluminum/settings.dart';
 import 'package:flutter/material.dart';
 
 // GENERAL //

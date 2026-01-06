@@ -1,4 +1,4 @@
-import 'package:driver_dashboard/ntcore/instance.dart';
+import 'package:aluminum/ntcore/instance.dart';
 import 'package:flutter/foundation.dart';
 
 /*

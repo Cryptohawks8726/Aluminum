@@ -1,6 +1,6 @@
-import 'package:driver_dashboard/ntcore/instance.dart';
-import 'package:driver_dashboard/ntreferences.dart';
-import "package:driver_dashboard/widgets/pid_container.dart";
+import 'package:aluminum/ntcore/instance.dart';
+import 'package:aluminum/ntreferences.dart';
+import "package:aluminum/widgets/pid_container.dart";
 import 'package:flutter/material.dart';
 
 class DebugScreen extends StatefulWidget {
@@ -23,10 +23,8 @@ class _DebugScreenState extends State<DebugScreen> {
             child: Column(
               spacing: 20,
               children: [
-                 Expanded(child: PIDContainer(title: "Subsystem!!!!!")),
-                 Expanded(
-                  child: PIDContainer(title: "Cooler Subsystem B)"),
-                ),
+                Expanded(child: PIDContainer(title: "Subsystem!!!!!")),
+                Expanded(child: PIDContainer(title: "Cooler Subsystem B)")),
               ],
             ),
           ),

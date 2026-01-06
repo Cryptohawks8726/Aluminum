@@ -1,6 +1,6 @@
 import 'dart:ffi';
 
-import 'package:driver_dashboard/ntcore/ntcore_structs.dart';
+import 'package:aluminum/ntcore/ntcore_structs.dart';
 import 'package:ffi/ffi.dart';
 import 'package:flutter/foundation.dart';
 

@@ -1,5 +1,5 @@
-import 'package:driver_dashboard/ntcore/instance.dart';
-import 'package:driver_dashboard/util.dart';
+import 'package:aluminum/ntcore/instance.dart';
+import 'package:aluminum/util.dart';
 import 'package:flutter/material.dart';
 
 class PIDContainer extends StatefulWidget {
@@ -10,7 +10,11 @@ class PIDContainer extends StatefulWidget {
   List<NTValueNotifier>? notifierArray;
 
   PIDContainer({required this.title, super.key});
-  PIDContainer.fromNotifierArray({required this.notifierArray, required this.title, super.key});
+  PIDContainer.fromNotifierArray({
+    required this.notifierArray,
+    required this.title,
+    super.key,
+  });
 
   @override
   State<PIDContainer> createState() => _PIDContainerState();
@@ -40,13 +44,14 @@ class _PIDContainerState extends State<PIDContainer> {
   @override
   void initState() {
     super.initState();
-    if (widget.notifierArray != null){}
+    if (widget.notifierArray != null) {}
 
     for (TextEditingController c in controllers) {
       c.text = "0.0";
     }
     refreshText();
   }
+
   // dispose controllers to free up memory
   @override
   void dispose() {
@@ -63,16 +68,17 @@ class _PIDContainerState extends State<PIDContainer> {
         color: Colors.blueGrey,
         borderRadius: BorderRadius.circular(20),
       ),
-      constraints: BoxConstraints(
-        maxWidth: 500,
-      ),
+      constraints: BoxConstraints(maxWidth: 500),
       padding: EdgeInsets.all(30),
       child: Column(
         spacing: 10,
         children: [
           Container(
             alignment: .center,
-            child: Text(widget.title, style: TextStyle(fontSize: 30, fontWeight: .bold),),
+            child: Text(
+              widget.title,
+              style: TextStyle(fontSize: 30, fontWeight: .bold),
+            ),
           ),
 
           PIDTextField(label: "Kp:", controller: pcontrol),
@@ -88,7 +94,6 @@ class _PIDContainerState extends State<PIDContainer> {
                 myPID.i = double.parse(icontrol.text);
                 myPID.d = double.parse(dcontrol.text);
                 // TODO: send through network tables
-                
               } on FormatException {
                 // when values are not doubles
                 showDialog(

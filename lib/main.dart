@@ -1,10 +1,14 @@
-import 'package:driver_dashboard/screens/dash_2cam_default.dart';
-import 'package:driver_dashboard/screens/debug_screen.dart';
-import 'package:driver_dashboard/screens/settings_screen.dart';
-import 'package:driver_dashboard/util.dart';
+import 'package:aluminum/screens/dash_2cam_default.dart';
+import 'package:aluminum/screens/debug_screen.dart';
+import 'package:aluminum/screens/settings_screen.dart';
+import 'package:aluminum/util.dart';
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
+  windowManager.setTitle('Aluminum');
   runApp(const DriverDashboard());
 }
 

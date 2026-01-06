@@ -1,11 +1,11 @@
-import 'package:driver_dashboard/ntcore/values.dart';
-import 'package:driver_dashboard/ntreferences.dart';
-import 'package:driver_dashboard/settings.dart';
-import 'package:driver_dashboard/widgets/field_view.dart';
-import 'package:driver_dashboard/widgets/nt_values_display.dart';
-import 'package:driver_dashboard/widgets/state_bindings.dart';
+import 'package:aluminum/ntcore/values.dart';
+import 'package:aluminum/ntreferences.dart';
+import 'package:aluminum/settings.dart';
+import 'package:aluminum/widgets/field_view.dart';
+import 'package:aluminum/widgets/nt_values_display.dart';
+import 'package:aluminum/widgets/state_bindings.dart';
 import 'package:mjpeg_view/mjpeg_view.dart';
-import 'package:driver_dashboard/util.dart';
+import 'package:aluminum/util.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
