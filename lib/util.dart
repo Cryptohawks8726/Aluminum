@@ -25,18 +25,39 @@ class PID {
   set d(double d) => dval = d;
 }
 
-final ThemeData appTheme = ThemeData(
+final ThemeData appRedTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     // Various colors I stole from the team colors, and also blue and red
     // dark blue
-    primary: Color.fromARGB(0xFF, 0x0B, 0x35, 0x62),
-    secondary: Colors.white,
-    tertiary: Color.fromARGB(0xFF, 0x04, 0x00, 0x3b),
+    // primary: Color.fromARGB(0xFF, 0x0B, 0x35, 0x62),
+    // secondary: Colors.white,
+    // tertiary: Color.fromARGB(0xFF, 0x04, 0x00, 0x3b),
     // team navy
-    seedColor: Color.fromARGB(0xFF, 0x04, 0x00, 0x3b),
+    // seedColor: Color.fromARGB(0xFF, 0x04, 0x00, 0x3b),
+    // a rebuilt color - reddish
+    seedColor: Color.fromARGB(0xFF, 0xea, 0x57, 0x2e),
+    // seedColor: Colors.blue,
+    // seedColor: Colors.red,
+
+    // seedColor: Colors.indigo,
+    brightness: .dark,
+  ),
+
+  textTheme: TextTheme(),
+);
+
+final ThemeData appBlueTheme = ThemeData(
+  colorScheme: ColorScheme.fromSeed(
+    // Various colors I stole from the team colors, and also blue and red
+    // dark blue
+    // primary: Color.fromARGB(0xFF, 0x0B, 0x35, 0x62),
+    // secondary: Colors.white,
+    // tertiary: Color.fromARGB(0xFF, 0x04, 0x00, 0x3b),
+    // team navy
+    // seedColor: Color.fromARGB(0xFF, 0x04, 0x00, 0x3b),
     // a rebuilt color - reddish
     // seedColor: Color.fromARGB(0xFF, 0xea, 0x57, 0x2e),
-    // seedColor: Colors.blue,
+    seedColor: Colors.blue,
     // seedColor: Colors.red,
 
     // seedColor: Colors.indigo,

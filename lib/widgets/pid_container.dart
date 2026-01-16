@@ -8,11 +8,7 @@ class PIDContainer extends StatefulWidget {
   final String subsystemName;
   late final PIDdata pidData;
 
-  PIDContainer({
-    required this.subsystemName,
-    required this.title,
-    super.key,
-  }) {
+  PIDContainer({required this.subsystemName, required this.title, super.key}) {
     pidData = PIDdata(subsystemName: subsystemName);
   }
 
@@ -51,7 +47,7 @@ class _PIDContainerState extends State<PIDContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: appTheme.colorScheme.primary,
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(20),
       ),
       constraints: BoxConstraints(maxWidth: 500),
@@ -71,13 +67,12 @@ class _PIDContainerState extends State<PIDContainer> {
           ListenableBuilder(
             listenable: widget.pidData.pNotif,
             builder: (context, _) {
-            pcontrol.text = widget.pidData.pNotif.currentValue.toString();
-            return Column(
-              children: [
-                PIDTextField(label: "Kp:", controller: pcontrol),
-              ],
-            );
-          }),
+              pcontrol.text = widget.pidData.pNotif.currentValue.toString();
+              return Column(
+                children: [PIDTextField(label: "Kp:", controller: pcontrol)],
+              );
+            },
+          ),
           ListenableBuilder(
             listenable: widget.pidData.iNotif,
             builder: (context, _) {
@@ -114,10 +109,14 @@ class _PIDContainerState extends State<PIDContainer> {
               }
             },
             style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(appTheme.colorScheme.secondary),
-              
+              backgroundColor: WidgetStatePropertyAll(
+                Theme.of(context).colorScheme.secondary,
+              ),
             ),
-            child: Text("Save", style: TextStyle(color: appTheme.colorScheme.tertiary),),
+            child: Text(
+              "Save",
+              style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+            ),
           ),
         ],
       ),

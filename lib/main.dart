@@ -1,3 +1,6 @@
+import 'package:aluminum/ntcore/instance.dart';
+import 'package:aluminum/ntcore/values.dart';
+import 'package:aluminum/ntreferences.dart';
 import 'package:aluminum/screens/dash_2cam_default.dart';
 import 'package:aluminum/screens/debug_screen.dart';
 import 'package:aluminum/screens/settings_screen.dart';
@@ -56,75 +59,84 @@ class _DriverDashboardState extends State<DriverDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: appTheme,
-      debugShowCheckedModeBanner: false, // removes red debug banner
-      home: Scaffold(
-        key: scaffoldKey,
-        // TODO: add navigation buttons and stuff surrounding the main dashboard widget
-        body: Container(
-          // container for screens
-          // padding: EdgeInsets.all(30),
-          child: pageList[selectedIndex].page,
-        ),
-
-        // drawer button (has since been moved to dashbaord)
-        floatingActionButton: FloatingActionButton.small(
-          onPressed: () {
-            scaffoldKey.currentState?.openEndDrawer();
-          },
-          child: Padding(
-            padding: EdgeInsetsGeometry.all(4.0),
-            child: Image.asset("images/logo.png"),
-          ),
-        ),
-
-        // drawer
-        endDrawer: NavigationDrawer(
-          selectedIndex: selectedIndex,
-          footer: Padding(
-            padding: EdgeInsetsGeometry.symmetric(
-              horizontal: 12.0,
-              vertical: 12.0,
+    return ListenableBuilder(
+      listenable: isRedAllianceNotifier,
+      builder: (context, child) {
+        bool isRed = switch (isRedAllianceNotifier.currentValue) {
+          NTBooleanValue(:final value) => value,
+          _ => false,
+        };
+        return MaterialApp(
+          theme: isRed ? appRedTheme : appBlueTheme,
+          debugShowCheckedModeBanner: false, // removes red debug banner
+          home: Scaffold(
+            key: scaffoldKey,
+            // TODO: add navigation buttons and stuff surrounding the main dashboard widget
+            body: Container(
+              // container for screens
+              // padding: EdgeInsets.all(30),
+              child: pageList[selectedIndex].page,
             ),
-            child: Column(
-              crossAxisAlignment: .start,
-              children: [
-                Text('Selected Auto:'),
-                // TODO: Swap for proper auto chooser widget
-                DropdownButton(
-                  onChanged: (val) {},
-                  items: [
-                    DropdownMenuItem(
+
+            // drawer button (has since been moved to dashbaord)
+            floatingActionButton: FloatingActionButton.small(
+              onPressed: () {
+                scaffoldKey.currentState?.openEndDrawer();
+              },
+              child: Padding(
+                padding: EdgeInsetsGeometry.all(4.0),
+                child: Image.asset("images/logo.png"),
+              ),
+            ),
+
+            // drawer
+            endDrawer: NavigationDrawer(
+              selectedIndex: selectedIndex,
+              footer: Padding(
+                padding: EdgeInsetsGeometry.symmetric(
+                  horizontal: 12.0,
+                  vertical: 12.0,
+                ),
+                child: Column(
+                  crossAxisAlignment: .start,
+                  children: [
+                    Text('Selected Auto:'),
+                    // TODO: Swap for proper auto chooser widget
+                    DropdownButton(
+                      onChanged: (val) {},
+                      items: [
+                        DropdownMenuItem(
+                          value: 'SomeReallyLongAutoName',
+                          child: Text('SomeReallyLongAutoName'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'OtherReallyLongAutoName',
+                          child: Text('OtherReallyLongAutoName'),
+                        ),
+                      ],
                       value: 'SomeReallyLongAutoName',
-                      child: Text('SomeReallyLongAutoName'),
-                    ),
-                    DropdownMenuItem(
-                      value: 'OtherReallyLongAutoName',
-                      child: Text('OtherReallyLongAutoName'),
                     ),
                   ],
-                  value: 'SomeReallyLongAutoName',
                 ),
-              ],
+              ),
+
+              onDestinationSelected: (int idx) {
+                setState(() {
+                  selectedIndex = idx;
+                });
+              },
+              children: pageList
+                  .map<Widget>((var page) {
+                    return NavigationDrawerDestination(
+                      label: Text(page.name),
+                      icon: page.icon,
+                    );
+                  })
+                  .toList(growable: false),
             ),
           ),
-
-          onDestinationSelected: (int idx) {
-            setState(() {
-              selectedIndex = idx;
-            });
-          },
-          children: pageList
-              .map<Widget>((var page) {
-                return NavigationDrawerDestination(
-                  label: Text(page.name),
-                  icon: page.icon,
-                );
-              })
-              .toList(growable: false),
-        ),
-      ),
+        );
+      },
     );
   }
 }
