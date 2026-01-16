@@ -43,32 +43,28 @@ class _Default2CamDashboardState extends State<Default2CamDashboard> {
                   stops: [0.8, 1.0],
                 ),
               ),
-              child: Column(
-                spacing: 30,
-                mainAxisAlignment: .center,
-                mainAxisSize: .max,
-                children: [
-                  // limelight cameras are 4:3 aspect ratio
-                  Expanded(
-                    child: SizedBox(
-                      child: MjpegView(
-                        fit: BoxFit.contain,
-                        errorWidget: cameraErrorWidget,
-                        uri: Settings.getCameraURLs[0],
-                      ),
-                    ),
-                  ),
-
-                  Expanded(
-                    child: SizedBox(
-                      child: MjpegView(
-                        fit: BoxFit.contain,
-                        errorWidget: cameraErrorWidget,
-                        uri: Settings.getCameraURLs[1],
-                      ),
-                    ),
-                  ),
-                ],
+              child: Builder(
+                builder: (context) {
+                  var children = Settings.getCameraURLs
+                      .map<Widget>((String s) {
+                        return Expanded(
+                          child: SizedBox(
+                            child: MjpegView(
+                              fit: BoxFit.contain,
+                              errorWidget: cameraErrorWidget,
+                              uri: Settings.getCameraURLs[0],
+                            ),
+                          ),
+                        );
+                      })
+                      .toList(growable: false);
+                  return Column(
+                    spacing: 30,
+                    mainAxisAlignment: .center,
+                    mainAxisSize: .max,
+                    children: children,
+                  );
+                },
               ),
             ),
           ),

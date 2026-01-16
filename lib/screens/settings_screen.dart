@@ -217,6 +217,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         },
                       );
                     }),
+
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => setState(() {
+                            instanceCopy.cameraURLs.add('http://1.2.3.4:1234');
+                            cameraControllers.add(
+                              TextEditingController(
+                                text: 'http://1.2.3.4:1234',
+                              ),
+                            );
+                          }),
+                          child: const Text('Add Camera'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => setState(() {
+                            instanceCopy.cameraURLs.removeLast();
+                            cameraControllers.removeLast();
+                          }),
+                          child: const Text('Remove Camera'),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
