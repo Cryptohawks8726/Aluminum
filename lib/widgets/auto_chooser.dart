@@ -61,6 +61,9 @@ class _AutoChooserState extends State<AutoChooser> {
 
     if (selectedVal != null && !opts.contains(selectedVal)) {
       opts.add(selectedVal!);
+    } else if (selectedVal == null) {
+      selectedVal = 'None';
+      opts.add('None');
     }
   }
 
@@ -78,14 +81,12 @@ class _AutoChooserState extends State<AutoChooser> {
               inst.setEntryString(autoChooserSelectedPath, '');
             }
           },
-          items:
-              opts
-                  .map(
-                    (String s) =>
-                        DropdownMenuItem<String>(value: s, child: Text(s)),
-                  )
-                  .toList()
-                ..add(DropdownMenuItem(value: null, child: Text('None'))),
+          items: opts
+              .map(
+                (String s) =>
+                    DropdownMenuItem<String>(value: s, child: Text(s)),
+              )
+              .toList(growable: false),
 
           value: selectedVal,
         ),
