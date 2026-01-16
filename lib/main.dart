@@ -1,9 +1,9 @@
-import 'package:aluminum/ntcore/instance.dart';
 import 'package:aluminum/ntcore/values.dart';
 import 'package:aluminum/ntreferences.dart';
 import 'package:aluminum/screens/dash_2cam_default.dart';
 import 'package:aluminum/screens/debug_screen.dart';
 import 'package:aluminum/screens/settings_screen.dart';
+import 'package:aluminum/settings.dart';
 import 'package:aluminum/util.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -12,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   windowManager.setTitle('Aluminum');
+  Settings.tryLoadUserSettings();
   runApp(const DriverDashboard());
 }
 

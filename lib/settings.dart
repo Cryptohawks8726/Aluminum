@@ -2,7 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aluminum/ntreferences.dart';
+import 'package:app_dirs/app_dirs.dart';
 import 'package:flutter/foundation.dart';
+
+final _settingsFilePath = defaultTargetPlatform == TargetPlatform.windows
+    ? '${getAppDirs(application: 'Aluminum').config}\\settings.json'
+    : '${getAppDirs(application: 'Aluminum').config}/settings.json';
 
 class Settings {
   /// Global instance of settings containing all of the values.
@@ -29,6 +34,8 @@ class Settings {
     } else {
       inst.updateConnectionSettings(_instance.teamNumber, _instance.port);
     }
+
+    saveSettingsLocally();
   }
 
   // Getters for all of the settings values so you can check settings
@@ -85,6 +92,14 @@ class Settings {
     File(filePath).writeAsString(s, flush: true);
   }
 
+  static void saveSettingsLocally() {
+    var f = File(_settingsFilePath);
+    if (!f.existsSync()) {
+      f.createSync(recursive: true);
+    }
+    exportJSONSettings(_settingsFilePath);
+  }
+
   static bool tryLoadSettingsFromJSON(String filePath) {
     try {
       var maybeSettings = Settings.fromJson(
@@ -101,5 +116,9 @@ class Settings {
       print('bad file');
       return false;
     }
+  }
+
+  static void tryLoadUserSettings() {
+    tryLoadSettingsFromJSON(_settingsFilePath);
   }
 }

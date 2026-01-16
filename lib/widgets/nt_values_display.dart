@@ -30,45 +30,6 @@ class _NTValuesDisplayState extends State<NTValuesDisplay> {
             }
           })
           .toList(growable: false),
-      // children: [
-      // placeholder lunite counter example
-      //   Stretch(
-      //   ),
-      //   // true/false value example
-      //   Stretch(
-      //   ),
-      //   // number example
-      //   Stretch(
-      //     child: Container(
-      //       padding: EdgeInsets.all(5.0),
-      //       decoration: BoxDecoration(
-      //         color: theme.colorScheme.inversePrimary,
-      //         borderRadius: BorderRadius.all(Radius.circular(15.0)),
-      //       ),
-      //       child: Column(
-      //         mainAxisAlignment: .center,
-      //         children: [Text('Some Number:'), Text('129.56')],
-      //       ),
-      //     ),
-      //   ),
-      //   // long widget example
-      //   Stretch(
-      //     child: Container(
-      //       padding: EdgeInsets.all(5.0),
-      //       decoration: BoxDecoration(
-      //         color: theme.colorScheme.secondaryContainer,
-      //         borderRadius: BorderRadius.all(Radius.circular(15.0)),
-      //       ),
-      //       child: Column(
-      //         mainAxisAlignment: .center,
-      //         children: [
-      //           Text('Super Long String Value:'),
-      //           Text('Woah This is A Really Long String from the Robot'),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ],
     );
   }
 }
