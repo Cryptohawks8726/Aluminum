@@ -8,6 +8,8 @@ const _newMotorCanIDPath = '/SmartDashboard/Add Motors/CAN ID';
 const _newMotorTypePath = '/SmartDashboard/Add Motors/Motor Type';
 const _motorTypesPath = '/SmartDashboard/Add Motors/Motor Types';
 const _publishMotorPath = '/SmartDashboard/Add Motors/publish';
+const _usedCanIDsList = '/SmartDashboard/Add Motors/Used CAN IDs';
+const _motorsPath = '/SmartDashboard/Motors';
 
 class MotorTestingScreen extends StatefulWidget {
   const MotorTestingScreen({super.key});
@@ -34,8 +36,14 @@ class _MotorTestingScreenState extends State<MotorTestingScreen> {
     valueName: _motorTypesPath,
     inst: inst,
   );
+  final usedCanIDsNotifier = NTValueNotifier.fromName(
+    valueName: _usedCanIDsList,
+    inst: inst,
+  );
+  final canIDFocusNode = FocusNode();
   List<String>? motorTypes;
   String? selectedMotorType;
+  Map<int, _MotorWidget> motors = {};
 
   _MotorTestingScreenState() {
     newMotorCanIDNotifier.addListener(() {
@@ -55,7 +63,19 @@ class _MotorTestingScreenState extends State<MotorTestingScreen> {
       }
     });
     motorTypesNotifier.addListener(updateMotorTypes);
+    usedCanIDsNotifier.addListener(updateMotorsList);
+    canIDFocusNode.addListener(() {
+      if (!canIDFocusNode.hasFocus) {
+        updateCanID();
+      }
+    });
+  }
 
+  @override
+  void initState() {
+    super.initState();
+
+    updateMotorsList();
     updateMotorTypes();
   }
 
@@ -67,6 +87,7 @@ class _MotorTestingScreenState extends State<MotorTestingScreen> {
     newMotorCanIDNotifier.dispose();
     newMotorTypeNotifier.dispose();
     motorTypesNotifier.dispose();
+    canIDFocusNode.dispose();
 
     super.dispose();
   }
@@ -80,9 +101,33 @@ class _MotorTestingScreenState extends State<MotorTestingScreen> {
     }
   }
 
-  void updateCanID(String s) {
-    int? id = int.tryParse(s);
-    if (id != null) {}
+  void updateMotorsList() {
+    final val = usedCanIDsNotifier.currentValue;
+    if (val is NTIntegerArrayValue) {
+      setState(() {
+        // Add new motors
+        for (var i in val.value) {
+          if (!motors.containsKey(i)) {
+            motors[i] = _MotorWidget(i);
+          }
+        }
+
+        for (var i in motors.keys) {
+          if (!val.value.contains(i)) {
+            motors[i]?.dispose();
+            motors.remove(i);
+          }
+        }
+        // Remove any motors which are no longer used
+      });
+    }
+  }
+
+  void updateCanID() {
+    int? id = int.tryParse(canIDController.text);
+    if (id != null) {
+      inst.setEntryInt(_newMotorCanIDPath, id);
+    }
   }
 
   // For convenience, since build() is a mess
@@ -104,6 +149,22 @@ class _MotorTestingScreenState extends State<MotorTestingScreen> {
     );
   }
 
+  List<TableRow> getMotorTableRows(BuildContext context) {
+    var theme = Theme.of(context);
+    var rows = motors.values.toList(growable: false);
+    var out = <TableRow>[];
+    for (int i = 0; i < rows.length; i++) {
+      out.add(
+        rows[i].buildRow(
+          i % 2 == 0
+              ? theme.colorScheme.primaryContainer
+              : theme.colorScheme.secondaryContainer,
+        ),
+      );
+    }
+    return out;
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -122,7 +183,7 @@ class _MotorTestingScreenState extends State<MotorTestingScreen> {
             Align(
               alignment: .centerRight,
               child: Text(
-                'Please deploy code from the MotorTesting repo first to use this correctly!',
+                'Will only work with the code from the MotorTesting repo!',
               ),
             ),
           ],
@@ -138,11 +199,12 @@ class _MotorTestingScreenState extends State<MotorTestingScreen> {
           children: [
             Text('Motor CAN ID: '),
             SizedBox(
-              width: 250,
+              width: 150,
               child: TextField(
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                onSubmitted: updateCanID,
+                onSubmitted: (_) => updateCanID,
                 controller: canIDController,
+                focusNode: canIDFocusNode,
               ),
             ),
             Text('Motor Type: '),
@@ -158,12 +220,17 @@ class _MotorTestingScreenState extends State<MotorTestingScreen> {
 
         const Divider(),
 
-        // List of motors to edite
+        // List of motors to edit
         Expanded(
-          child: ListView.builder(
-            itemBuilder: (context, idx) {
-              return Text('hi');
+          child: Table(
+            defaultVerticalAlignment: .middle,
+            columnWidths: {
+              0: FractionColumnWidth(0.3),
+              1: FractionColumnWidth(0.2),
+              2: FractionColumnWidth(0.2),
+              3: FractionColumnWidth(0.3),
             },
+            children: getMotorTableRows(context),
           ),
         ),
       ],
@@ -171,10 +238,110 @@ class _MotorTestingScreenState extends State<MotorTestingScreen> {
   }
 }
 
-// For convenience.
-class _DropdownMotorType extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton(items: [], onChanged: (val) {});
+class _MotorWidget {
+  final voltageEditController = TextEditingController();
+  final voltageEditFocusNode = FocusNode();
+  late final int canID;
+  late final String posPath;
+  late final NTValueNotifier posNotifier;
+  late final String velPath;
+  late final NTValueNotifier velNotifier;
+  late final String voltagePath;
+  late final NTValueNotifier voltageNotifier;
+
+  _MotorWidget(int id) {
+    canID = id;
+    posPath = '$_motorsPath/$id/Position';
+    posNotifier = NTValueNotifier.fromName(valueName: posPath, inst: inst);
+    velPath = '$_motorsPath/$id/Velocity';
+    velNotifier = NTValueNotifier.fromName(valueName: velPath, inst: inst);
+    voltagePath = '$_motorsPath/$id/Voltage';
+    voltageNotifier = NTValueNotifier.fromName(
+      valueName: voltagePath,
+      inst: inst,
+    );
+
+    voltageEditFocusNode.addListener(() {
+      if (!voltageEditFocusNode.hasFocus) {
+        sendVoltage();
+      }
+    });
+  }
+
+  void sendVoltage() {
+    var val = double.tryParse(voltageEditController.text);
+    if (val != null) {
+      inst.setEntryDouble(voltagePath, val);
+    }
+  }
+
+  // TRIPLE LISTENABLE BULIDER BECAUSE I CANNOT BE BOTHERED!!!!!!!!
+  TableRow buildRow(Color rowColor) {
+    return TableRow(
+      decoration: BoxDecoration(color: rowColor),
+      children: [
+        Center(child: Text('Motor $canID')),
+        Align(
+          alignment: .center,
+          child: ListenableBuilder(
+            listenable: posNotifier,
+            builder: (context, child) {
+              return Text('Position: ${posNotifier.currentValue.toString()}');
+            },
+          ),
+        ),
+        Align(
+          alignment: .center,
+          child: ListenableBuilder(
+            listenable: velNotifier,
+            builder: (context, child) {
+              return Text('Velocity: ${velNotifier.currentValue.toString()}');
+            },
+          ),
+        ),
+        Align(
+          alignment: .center,
+          child: ListenableBuilder(
+            listenable: voltageNotifier,
+            builder: (context, child) {
+              final voltsVal = voltageNotifier.currentValue;
+              if (voltsVal is NTDoubleValue) {
+                voltageEditController.text = voltsVal.value.toString();
+              }
+
+              return Padding(
+                padding: EdgeInsetsGeometry.all(10.0),
+                child: Row(
+                  spacing: 10.0,
+                  mainAxisAlignment: .center,
+                  children: [
+                    Text('Voltage: '),
+                    SizedBox(
+                      width: 150,
+                      child: TextField(
+                        controller: voltageEditController,
+                        selectAllOnFocus: false,
+                        onSubmitted: (_) => sendVoltage,
+                        focusNode: voltageEditFocusNode,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  void dispose() {
+    NTValueNotifier.stopNotifying(voltagePath);
+    NTValueNotifier.stopNotifying(posPath);
+    NTValueNotifier.stopNotifying(velPath);
+    posNotifier.dispose();
+    velNotifier.dispose();
+    voltageNotifier.dispose();
+    voltageEditFocusNode.dispose();
   }
 }

@@ -44,7 +44,7 @@ const pageList = <PageDestination>[
   ),
   PageDestination(
     name: 'Test Motors',
-    icon: Icon(Icons.construction),
+    icon: Icon(Icons.sports_esports),
     page: MotorTestingScreen(),
   ),
   PageDestination(

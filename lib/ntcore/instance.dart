@@ -183,6 +183,10 @@ class NTInstance {
     ntcore.NT_SetString(_getEntryHandle(entryName), 0, toWpiString(val));
   }
 
+  void setEntryInt(String entryName, int val) {
+    ntcore.NT_SetInteger(_getEntryHandle(entryName), 0, val);
+  }
+
   int _getEntryHandle(String entryName) {
     var maybeCached = handlesInUse[entryName];
     if (maybeCached != null) {
