@@ -1,6 +1,5 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
 
 // ADD SOUNDS HERE
 const sounds = <({String assetPath, String name})>[
@@ -8,7 +7,12 @@ const sounds = <({String assetPath, String name})>[
 ];
 
 class SoundboardScreen extends StatelessWidget {
-  final player = AudioPlayer();
+  final players = sounds
+      .map((data) {
+        return AudioPlayer()..setAsset(data.assetPath);
+      })
+      .toList(growable: false);
+
   SoundboardScreen({super.key});
 
   @override
@@ -41,14 +45,8 @@ class SoundboardScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                     ),
-                    onPressed: () async {
-                      player.play(
-                        BytesSource(
-                          (await rootBundle.load(
-                            sounds[index].assetPath,
-                          )).buffer.asUint8List(),
-                        ),
-                      );
+                    onPressed: () {
+                      players[index].play();
                     },
                     child: Text(sounds[index].name),
                   ),
