@@ -16,15 +16,15 @@ const String waypointsPath = '/SmartDashboard/FieldPointDisplay/setpoints';
 const setZeroGyroPath = '/SmartDashboard/Subsystems/Robot/zeroGyroTrigger';
 
 final NTValueNotifier gameTimeNotifier = NTValueNotifier.fromName(
-  valueName: "/SmartDashboard/gameTime",
+  valueName: "/SmartDashboard/Subsystems/Robot/gameTime",
   inst: inst,
 );
 final NTValueNotifier stateNotifier = NTValueNotifier.fromName(
-  valueName: "/SmartDashboard/currentState",
+  valueName: "/SmartDashboard/Subsystems/Robot/currentCommandName",
   inst: inst,
 );
 final robotPosNotifier = NTValueNotifier.fromName(
-  valueName: '/SmartDashboard/robot2DPosition',
+  valueName: '/SmartDashboard/Subsystems/Robot/robotPosition',
   inst: inst,
 );
 
@@ -43,7 +43,7 @@ final isRedAllianceNotifier = NTValueNotifier.fromName(
   inst: inst,
 );
 // Path to the auto chooser
-final autoChooserPath = '/SmartDashboard/autoChooser';
+final autoChooserPath = '/SmartDashboard/Auto Chooser';
 
 /// Path to the auto chooser's "active" property. This is where you READ the current auto name.
 final autoChooserActivePath = '$autoChooserPath/active';
