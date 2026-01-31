@@ -52,13 +52,16 @@ class NTInstance {
   late final Pointer<WPI_String> _connectionName;
 
   /// Cache of used handles. They can be forcibly freed but you likely won't need to.
-  final Map<String, int> handlesInUse = {};
+  final Map<String, int> _handlesInUse = {};
+
+  /// map
+  final List<NTPrefixNotifier> _prefixListeners = [];
 
   /// Connection notifier - you can listen to this to be notified when there
   /// is a change in network connection status.
   final NTConnectionNotifier connectionNotifier = NTConnectionNotifier();
 
-  bool stopTimer = false;
+  bool _stopTimer = false;
 
   /// Creates a new instance connected to the specific team number and port
   /// and with the given name.
@@ -77,7 +80,7 @@ class NTInstance {
 
   /// Called periodically to receive any updates from listeners.
   void _pollListeners(Timer timer) {
-    if (stopTimer) {
+    if (_stopTimer) {
       timer.cancel();
       return;
     }
@@ -85,8 +88,34 @@ class NTInstance {
     // Update connection info too since it's convenient to do here.
     connectionNotifier.isConnected = ntcore.NT_IsConnected(_inst) == 1;
 
-    var len = calloc.allocate<Size>(sizeOf<Size>());
-    var queue = ntcore.NT_ReadListenerQueue(_listenerPoller, len);
+    // Handle any prefix listeners.
+    for (var listener in _prefixListeners) {
+      final len = calloc.allocate<Size>(sizeOf<Size>());
+      final queue = ntcore.NT_ReadListenerQueue(listener._listenerPoller, len);
+
+      if (queue.address == 0) {
+        continue; // The function returns a null pointer when there are no events.
+      }
+
+      for (int i = 0; i < len.value; i++) {
+        final event = queue[i];
+        final name = calloc.allocate<WPI_String>(sizeOf<WPI_String>());
+        ntcore.NT_GetTopicName(event.data.valueData.topic, name);
+        // just in case this is null
+        if (name.ref.str.address == 0) {
+          calloc.free(name);
+          return;
+        }
+        final nameDart = wpiToDartString(name);
+        calloc.free(name);
+
+        listener._update(nameDart, _cValueToDart(event.data.valueData.value));
+      }
+      ntcore.NT_DisposeEventArray(queue, len.value);
+    }
+
+    final len = calloc.allocate<Size>(sizeOf<Size>());
+    final queue = ntcore.NT_ReadListenerQueue(_listenerPoller, len);
 
     if (queue.address == 0) {
       return; // The function returns a null pointer when there are no events.
@@ -96,15 +125,15 @@ class NTInstance {
       // assume events are value events since those are the only ones
       // we usually subscribe to. CHANGE THIS IF YOU WANT TO LISTEN TO OTHER EVENTS!
 
-      var event = queue[i];
-      var name = calloc.allocate<WPI_String>(sizeOf<WPI_String>());
+      final event = queue[i];
+      final name = calloc.allocate<WPI_String>(sizeOf<WPI_String>());
       ntcore.NT_GetTopicName(event.data.valueData.topic, name);
       // just in case this is null
       if (name.ref.str.address == 0) {
         calloc.free(name);
         return;
       }
-      var nameDart = wpiToDartString(name);
+      final nameDart = wpiToDartString(name);
       // print('Received event for $nameDart');
       calloc.free(name);
       // don't think freeCharArray is needed here? maybe double check that later
@@ -122,7 +151,7 @@ class NTInstance {
   /// the object is destroyed will cause a slight memory leak. (If you never destroy this
   /// object you won't need to call this.)
   void dispose() {
-    stopTimer = true;
+    _stopTimer = true;
     ntcore.NT_DestroyListenerPoller(_listenerPoller);
     ntcore.NT_DestroyInstance(_inst);
     calloc.free(_connectionName);
@@ -188,12 +217,12 @@ class NTInstance {
   }
 
   int _getEntryHandle(String entryName) {
-    var maybeCached = handlesInUse[entryName];
+    var maybeCached = _handlesInUse[entryName];
     if (maybeCached != null) {
       return maybeCached;
     } else {
       var newHandle = ntcore.NT_GetEntry(_inst, toWpiString(entryName));
-      handlesInUse[entryName] = newHandle;
+      _handlesInUse[entryName] = newHandle;
       return newHandle;
     }
   }
@@ -202,13 +231,79 @@ class NTInstance {
   /// there is one in use. Call this if you were setting a value or reading from it using
   /// getEntryValue and no longer need to.
   void freeEntryHandle(String entryName) {
-    var maybeCached = handlesInUse[entryName];
+    var maybeCached = _handlesInUse[entryName];
     if (maybeCached != null) {
       ntcore.NT_ReleaseEntry(maybeCached);
     }
   }
 }
 
+/// Similar to NTValueNotifier, but instead tracks all values under
+/// a certain prefix and maintains a map of all the values contained under the prefix.
+///
+/// You should call `dispose` when you are done with this object.
+class NTPrefixNotifier with ChangeNotifier {
+  // private: nt handles (will be polled by the instance)
+  late final int _listener;
+  late final int _listenerPoller;
+
+  final String prefix;
+  final NTInstance instance;
+
+  /// Map containing all of the entries. You are only intended to read from this, not edit it.
+  /// This is a `Map<String, dynamic>` - the dynamic value will either be another
+  /// Map or a NetworkTablesValue.
+  final Map<String, dynamic> entries = {};
+
+  NTPrefixNotifier({required this.prefix, required this.instance}) {
+    _listenerPoller = ntcore.NT_CreateListenerPoller(instance._inst);
+    final wpiPrefix = toWpiString(prefix);
+    _listener = ntcore.NT_AddPolledListenerMultiple(
+      _listenerPoller,
+      wpiPrefix,
+      1,
+      ntEventValueAll,
+    );
+    ntcore.WPI_FreeString(wpiPrefix);
+
+    instance._prefixListeners.add(this);
+  }
+
+  /// `path` must start with `prefix` or this may cause crashes.
+  void _update(String path, NetworkTablesValue newVal) {
+    var strippedPath = path.substring(prefix.length);
+    if (strippedPath.startsWith('/')) {
+      strippedPath = strippedPath.substring(1);
+    }
+    final strippedPathPieces = strippedPath.split('/');
+
+    Map<String, dynamic> subTable = entries;
+    for (var key in strippedPathPieces.getRange(
+      0,
+      strippedPathPieces.length - 1,
+    )) {
+      var newSubTable = entries[key];
+      if (newSubTable == null) {
+        newSubTable = <String, dynamic>{};
+        subTable[key] = newSubTable;
+      }
+      subTable = newSubTable;
+    }
+    subTable[strippedPathPieces.last] = newVal;
+
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    instance._prefixListeners.remove(this);
+    ntcore.NT_RemoveListener(_listener);
+    ntcore.NT_DestroyListenerPoller(_listenerPoller);
+    super.dispose();
+  }
+}
+
+/// Class which provides ChangeNotifier updates whenever the connection status changes.
 class NTConnectionNotifier with ChangeNotifier {
   bool _isConnected = false;
   bool get isConnected => _isConnected;
