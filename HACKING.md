@@ -11,6 +11,7 @@ Guide for making code changes to the dashboard.
 - The NTValueNotifier class is used to provide a ChangeNotifierProvider object which notifies listeners any time the value at a certain path in NetworkTables changes. Internally, NTInstance polls listeners and updates them in a loop, and this is how these updates are handed out.
 - The easiest way to create new NTValueNotifiers is to use the .fromName factory, which either creates a new one or returns an existing listener for that entry.
 - We keep most of the paths and notifiers (and the NTInstance) used as global variables in one file (lib/ntreferences.dart).
+- NTCore uses pointers to the WPI_String struct for strings. You can convert to/from dart strings using toWpiString and wpiToDartString methods. If you don't have a pointer to a WPI_String struct you can also cast the str field to a Utf8 pointer and then call toDartString() with the length from the len field.
 
 ## Where to find stuff
 - lib/screens contains files for each one of the screens on the dashboard - the main dash, settings, motor tester panel, etc. Each just has a class extending Widget which contains all the logic for that screen.
