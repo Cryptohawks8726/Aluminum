@@ -34,18 +34,16 @@ follow the above instructions to regenerate the bindings, and make sure there ar
 
 ## Building and Running
 
-You can either compile the ntcore library from source using the submodule checkout in this repository
-or use precompiled ntcoreffi binaries which can be found in [wpilib's maven releases](https://frcmaven.wpi.edu/ui/native/release/).
-If using those binaries, place them in the repository's root. Setting the environment variable COMPILE_NTCORE will cause
-the library to be build from source. You need the protobuf C++ library installed somewhere cmake will be able to find it
-as a dependency.
-
-Building from source is currently not supported on macos.
+This project relies on the ntcoreffi binaries published by WPILib to interface with the ntcore library.
+These binaries can be downloaded from [wpilib's maven releases](https://frcmaven.wpi.edu/ui/native/release), however, there is also
+a script in this project to automatically download them for you. It's in tool/download_ntcore.dart - run it using `dart run tool/download_ntcore.dart`.
 
 `flutter run` will run the project in debug mode and `flutter build {platform}`
 will build and places a bundle in build/{platform}/{architecture}/{debug or release}/bundle
 containing the executable and all project assets/libraries.
 On macos, you'll need to install the [cocoapods](https://cocoapods.org/) package manager for xcode. To do this, you can use the [homebrew package manager](https://brew.sh/) (download it through github or through the terminal as shown on the website). Run `brew install cocoapods` in the terminal to install cocoapods, then run `pod setup` to complete the setup. You may need to restart your IDE and manually type `flutter run` after initially installing.
+
+Windows additionally requires enabling developer mode to allow flutter to create symlinks. Thanks, Microsoft.
 
 Other than that this is a normal flutter project and can run/hot reload/add packages as usual. Note that the dashboard will most likely be ran on windows; the linux and macos versions are mainly for development purposes.
 
@@ -60,9 +58,11 @@ The fastest way to downloaded NSIS is using winget: `winget install NSIS.NSIS`.
 Then, run the installed NSIS app and select "Compile NSI scripts", then open
 the setup.nsi file in this repository. An installer will be produced in the build directory.
 
-Please remember to update the version number when publishing new releases - 
+Please remember to update the version number when publishing new releases -
 all you need to do is change the number at the top of pubspec.yaml!
 
 ## Maintenance and Adding Features
+
 - If the NTCore C API ever changes or gets new features, you may need to regenerate the FFI bindings.
+- You should update the version of NTCore used by the downloader script (tool/download_ntcore.dart) and delete/redownload the new binaries when a new version of WPILib releases.
 - See HACKING.md at the root of this repo for more info on making code edits.

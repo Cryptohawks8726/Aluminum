@@ -26,7 +26,7 @@ packages:
     source: hosted
     version: "0.2.0"
   archive:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: archive
       sha256: "2fde1607386ab523f7a36bb3e7edb43bd58e6edaf2ffb29d8a6d578b297fdbbd"
@@ -312,6 +312,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+  internet_file:
+    dependency: "direct main"
+    description:
+      name: internet_file
+      sha256: c303ebf02caa853f072c49150557e76957622adacb18420008531c97a5ef5026
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
   json_annotation:
     dependency: transitive
     description:
@@ -725,6 +733,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  universal_file:
+    dependency: transitive
+    description:
+      name: universal_file
+      sha256: d1a957fccaad2a32023b62fe435b273ee47aaf2eb804709795e4bf4afff50960
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   universal_platform:
     dependency: transitive
     description:
