@@ -22,7 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		233D518E2F007F1D009092EC /* libntcoreffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 233D518A2F007DF9009092EC /* libntcoreffi.dylib */; };
-		233D518F2F008379009092EC /* libntcoreffi.dylib in Bundle Framework */ = {isa = PBXBuildFile; fileRef = 233D518A2F007DF9009092EC /* libntcoreffi.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		23C448142F2EED3700CC5E4D /* libntcoreffi.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 233D518A2F007DF9009092EC /* libntcoreffi.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		331C80D8294CF71000263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C80D7294CF71000263BE5 /* RunnerTests.swift */; };
 		335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */; };
 		33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC10F02044A3C60003C045 /* AppDelegate.swift */; };
@@ -51,15 +51,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		33CC110E2044A8840003C045 /* Bundle Framework */ = {
+		23C448152F2EED3700CC5E4D /* Embed Libraries */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				233D518F2F008379009092EC /* libntcoreffi.dylib in Bundle Framework */,
+				23C448142F2EED3700CC5E4D /* libntcoreffi.dylib in Embed Libraries */,
 			);
-			name = "Bundle Framework";
+			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -202,7 +202,6 @@
 				1C228F278549701411C314A7 /* Pods-RunnerTests.release.xcconfig */,
 				79818A061A158E88943EC5D9 /* Pods-RunnerTests.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -245,10 +244,10 @@
 				12A81B9479813E26B3E84395 /* [CP] Check Pods Manifest.lock */,
 				33CC10E92044A3C60003C045 /* Sources */,
 				33CC10EB2044A3C60003C045 /* Resources */,
-				33CC110E2044A8840003C045 /* Bundle Framework */,
 				3399D490228B24CF009A79C7 /* Run Script */,
 				233D518D2F007F18009092EC /* Frameworks */,
 				0AD23885F8A60277AA771C3F /* [CP] Embed Pods Frameworks */,
+				23C448152F2EED3700CC5E4D /* Embed Libraries */,
 			);
 			buildRules = (
 			);
