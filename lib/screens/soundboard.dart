@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
-// ADD SOUNDS HERE
-const sounds = <({String assetPath, String name})>[
+typedef SoundItem = ({String assetPath, String name});
+
+const List<SoundItem> sounds = [
+  (assetPath: 'sounds/fahhhhhhhhhhhhhh.mp3', name: 'Fahhhh'),
+  (assetPath: 'sounds/lack-of-a-father-figure.mp3', name: 'Lack of a Father Figure'),
+  (assetPath: 'sounds/outro-song_oqu8zAg.mp3', name: 'Outro Song'),
   (assetPath: 'sounds/test-sound.mp3', name: 'Test Sound'),
+  (assetPath: 'sounds/vine-boom.mp3', name: 'Vine Boom'),
+  (assetPath: 'sounds/we-are-charlie-kirk-song.mp3', name: 'We Are Charlie Kirk'),
 ];
 
 class SoundboardScreen extends StatelessWidget {
-  final players = sounds
-      .map((data) {
-        return AudioPlayer()..setAsset(data.assetPath);
-      })
-      .toList(growable: false);
-
   SoundboardScreen({super.key});
+
+  final List<AudioPlayer> players = sounds
+      .map((data) => AudioPlayer()..setAsset(data.assetPath))
+      .toList(growable: false);
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    final theme = Theme.of(context);
     return Padding(
-      padding: EdgeInsetsGeometry.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          // Title bar and buttons
           Align(
-            alignment: .centerLeft,
+            alignment: Alignment.centerLeft,
             child: Text(
               'SOUNDBOARD 🤣😹😂🫵🫵🫵',
               style: theme.textTheme.displaySmall,
@@ -33,28 +36,30 @@ class SoundboardScreen extends StatelessWidget {
           const Divider(),
           Expanded(
             child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 6,
               ),
+              itemCount: sounds.length,
               itemBuilder: (ctx, index) {
+                final sound = sounds[index];
                 return Padding(
-                  padding: EdgeInsetsGeometry.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: FilledButton(
                     style: FilledButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       final player = AudioPlayer()
-                        ..setAsset(sounds[index].assetPath);
-                      player.play();
+                        ..setAsset(sound.assetPath);
+                      await player.play();
+                      await player.dispose();
                     },
-                    child: Text(sounds[index].name),
+                    child: Text(sound.name),
                   ),
                 );
               },
-              itemCount: sounds.length,
             ),
           ),
         ],
