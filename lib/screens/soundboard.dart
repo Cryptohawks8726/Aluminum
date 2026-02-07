@@ -18,9 +18,20 @@ const List<SoundItem> sounds = [
   ),
 ];
 
-class SoundboardScreen extends StatelessWidget {
-  SoundboardScreen({super.key});
+class SoundboardScreen extends StatefulWidget {
+  const SoundboardScreen({super.key});
 
+<<<<<<< HEAD
+=======
+  @override
+  State<StatefulWidget> createState() => _SoundboardScreenState();
+}
+
+class _SoundboardScreenState extends State<SoundboardScreen> {
+  double vol = 1.0;
+  _SoundboardScreenState();
+
+>>>>>>> 7393f8b2422cccefa271c9cdae45722fa66b7ca5
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -53,14 +64,39 @@ class SoundboardScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () async {
+<<<<<<< HEAD
                       final player = AudioPlayer()..setAsset(sound.assetPath);
                       player.play();
+=======
+                      final player = AudioPlayer()
+                        ..setAsset(sound.assetPath)
+                        ..setVolume(vol);
+                      await player.play();
+                      await for (final state in player.processingStateStream) {
+                        if (state == ProcessingState.completed) {
+                          break;
+                        }
+                      }
+                      await player.dispose();
+>>>>>>> 7393f8b2422cccefa271c9cdae45722fa66b7ca5
                     },
                     child: Text(sound.name),
                   ),
                 );
               },
             ),
+          ),
+          Row(
+            children: [
+              Text('Volume: '),
+              Slider(
+                value: vol,
+                label: "Volume",
+                onChanged: (double v) => setState(() {
+                  vol = v;
+                }),
+              ),
+            ],
           ),
         ],
       ),
