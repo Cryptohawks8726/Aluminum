@@ -27,6 +27,7 @@ class SoundboardScreen extends StatefulWidget {
 
 class _SoundboardScreenState extends State<SoundboardScreen> {
   double vol = 1.0;
+  final List<AudioPlayer> activeSounds = [];
   _SoundboardScreenState();
   @override
   Widget build(BuildContext context) {
@@ -63,9 +64,13 @@ class _SoundboardScreenState extends State<SoundboardScreen> {
                       final player = AudioPlayer()
                         ..setAsset(sound.assetPath)
                         ..setVolume(vol);
+                      activeSounds.add(player);
                       await player.play();
-                      await for (final state in player.processingStateStream) {
-                        if (state == ProcessingState.completed) {
+                      await for (final state in player.playerStateStream) {
+                        if (!state.playing ||
+                            state.processingState ==
+                                ProcessingState.completed) {
+                          print('x');
                           break;
                         }
                       }
@@ -86,6 +91,16 @@ class _SoundboardScreenState extends State<SoundboardScreen> {
                 onChanged: (double v) => setState(() {
                   vol = v;
                 }),
+              ),
+              FilledButton(
+                onPressed: () {
+                  for (final player in activeSounds) {
+                    // pause instead of stop so the await actually finishes.
+                    player.pause();
+                  }
+                  activeSounds.clear();
+                },
+                child: const Text('Cancel Sounds'),
               ),
             ],
           ),
