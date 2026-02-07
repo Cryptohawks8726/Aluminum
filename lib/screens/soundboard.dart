@@ -59,8 +59,6 @@ class _SoundboardScreenState extends State<SoundboardScreen> {
                       ),
                     ),
                     onPressed: () async {
-                      final player = AudioPlayer()..setAsset(sound.assetPath);
-                      player.play();
                       final player = AudioPlayer()
                         ..setAsset(sound.assetPath)
                         ..setVolume(vol);
