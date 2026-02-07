@@ -36,37 +36,45 @@ class _DebugScreenState extends State<DebugScreen> {
     if (subMap == null) {
       return Center(child: Text('-- select a subsystem --'));
     } else {
-      return Row(
-        spacing: 20,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Column(
-              spacing: 20,
-              children: [
-                Expanded(
-                  child: PIDContainer(
-                    subsystemName: "ExampleSubsystem",
-                    title: "Subsystem!!!!!",
-                  ),
-                ),
-                Expanded(
-                  child: PIDContainer(
-                    subsystemName: "ExampleSubsystem",
-                    title: "Same Subsystem!!!!!",
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          VerticalDivider(),
-          Expanded(flex: 1, child: NTTopicDisplay()),
-          VerticalDivider(),
-          // can be used to display more things in the future
-          Expanded(flex: 3, child: const Placeholder()),
-        ],
+      return Center(
+        child: Column(
+          children: [
+            Text('Debug panel is currently under construction...'),
+            Text('For now, you can view and set values through glass.'),
+          ],
+        ),
       );
+      // return Row(
+      //   spacing: 20,
+      //   children: [
+      //     Expanded(
+      //       flex: 2,
+      //       child: Column(
+      //         spacing: 20,
+      //         children: [
+      //           Expanded(
+      //             child: PIDContainer(
+      //               subsystemName: "ExampleSubsystem",
+      //               title: "Subsystem!!!!!",
+      //             ),
+      //           ),
+      //           Expanded(
+      //             child: PIDContainer(
+      //               subsystemName: "ExampleSubsystem",
+      //               title: "Same Subsystem!!!!!",
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+
+      //     VerticalDivider(),
+      //     Expanded(flex: 1, child: NTTopicDisplay()),
+      //     VerticalDivider(),
+      //     // can be used to display more things in the future
+      //     Expanded(flex: 3, child: const Placeholder()),
+      //   ],
+      // );
     }
   }
 
