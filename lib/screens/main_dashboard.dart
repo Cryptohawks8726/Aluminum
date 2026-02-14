@@ -180,39 +180,15 @@ class _MainDashboardState extends State<MainDashboard> {
                           flex: 1,
                           child: NTValuesDisplay(
                             children: [
-                              BooleanDisplayTile(
-                                valueName: '/FMSInfo/IsRedAlliance',
-                                displayText: 'Are we red?',
-                              ),
-                              NumberDisplayTile(
-                                valueName: '/SmartDashboard/gameTime',
-                                displayText: 'Game Time (Seconds):',
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.primaryContainer,
-                              ),
-                              NumberColorChangeTile(
-                                valueName: '/SmartDashboard/luniteCount',
-                                displayText: 'Lunite Count: ',
-                                decimalPlaces: 0,
-                                colorPicker: (double? n) {
-                                  if (n != null) {
-                                    if (n >= 3) {
-                                      return Colors.green;
-                                    } else if (n > 0) {
-                                      return Colors.yellow.shade800;
-                                    }
-                                  }
-                                  return Colors.redAccent;
-                                },
+                              StringDisplayTile(
+                                valueName: gameStatePath,
+                                displayText: 'Game State:',
+                                color: theme.colorScheme.secondaryContainer,
                               ),
                               StringDisplayTile(
-                                valueName: '/SmartDashboard/currentState',
-                                displayText: 'Robot is in',
-                              ),
-                              IncrementableCounterTile(
-                                valueName: '/SmartDashboard/luniteCount',
-                                displayText: 'Lunite Count: ',
+                                valueName: intakeStatePath,
+                                displayText: 'Intake State:',
+                                color: theme.colorScheme.primaryContainer,
                               ),
                             ],
                           ),

@@ -78,3 +78,8 @@ class PIDdata {
     inst.setEntryDouble("$sdPath/kD", kd);
   }
 }
+
+// 2026 Rebuilt Specific Values
+const String gameStatePath = '/SmartDashboard/Subsystems/Robot/gameState';
+const String intakeStatePath =
+    '/SmartDashboard/Subsystems/Intake/currentCommandName';
