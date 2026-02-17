@@ -19,6 +19,21 @@ final double fieldOriginRatioY = fieldOriginY / fieldImageSize.height;
 final double fieldSizeRatioX = fieldSizeX / fieldImageSize.width;
 final double fieldSizeRatioY = fieldSizeY / fieldImageSize.height;
 
+// Paint objects used for painting the things on the field.
+final pointPaint = Paint()
+  ..color = Colors.cyanAccent
+  ..style = PaintingStyle.fill;
+final selectedPaint = Paint()
+  ..color = Colors.orangeAccent
+  ..style = PaintingStyle.fill;
+final pathPaint = Paint()
+  ..color = Colors.cyan.withValues(alpha: 0.0)
+  ..strokeWidth = 2
+  ..style = PaintingStyle.stroke;
+final displayPointPaint = Paint()
+  ..color = Colors.green
+  ..style = PaintingStyle.fill;
+
 class FieldViewWidget extends StatefulWidget {
   const FieldViewWidget({super.key});
 
@@ -29,6 +44,7 @@ class FieldViewWidget extends StatefulWidget {
 class _FieldViewWidgetState extends State<FieldViewWidget> {
   List<double> robotPosition = [0, 0, 0];
   List<Offset> customWaypoints = [];
+  List<Offset> displayPoints = [];
   int? _draggedPointIndex;
 
   @override
@@ -36,6 +52,7 @@ class _FieldViewWidgetState extends State<FieldViewWidget> {
     super.initState();
     robotPosNotifier.addListener(_updateRobotPosition);
     waypointsEntry.addListener(_updateWaypointsFromNT);
+    displayPointsEntry.addListener(_updateDisplayPointsFromNT);
     _updateWaypointsFromNT();
     _updateRobotPosition();
   }
@@ -44,6 +61,7 @@ class _FieldViewWidgetState extends State<FieldViewWidget> {
   void dispose() {
     robotPosNotifier.removeListener(_updateRobotPosition);
     waypointsEntry.removeListener(_updateWaypointsFromNT);
+    displayPointsEntry.removeListener(_updateDisplayPointsFromNT);
     super.dispose();
   }
 
@@ -60,6 +78,24 @@ class _FieldViewWidgetState extends State<FieldViewWidget> {
         ];
       }
     });
+  }
+
+  // copy-paste of waypoint updater, too lazy to clean this up.
+  void _updateDisplayPointsFromNT() {
+    final currentVal = displayPointsEntry.currentValue;
+    if (currentVal is NTDoubleArrayValue) {
+      final arr = currentVal.value;
+      List<Offset> newPoints = [];
+      // Parse [x, y, x, y...]
+      for (int i = 0; i < arr.length; i += 2) {
+        if (i + 1 < arr.length) {
+          newPoints.add(Offset(arr[i], arr[i + 1]));
+        }
+      }
+      setState(() {
+        displayPoints = newPoints;
+      });
+    }
   }
 
   void _updateWaypointsFromNT() {
@@ -236,6 +272,7 @@ class _FieldViewWidgetState extends State<FieldViewWidget> {
                           painter: FieldPainter(
                             robotPosition: robotPosition,
                             waypoints: customWaypoints,
+                            displayPoints: displayPoints,
                             draggedIndex: _draggedPointIndex,
                           ),
                         ),
@@ -255,27 +292,18 @@ class _FieldViewWidgetState extends State<FieldViewWidget> {
 class FieldPainter extends CustomPainter {
   final List<double> robotPosition;
   final List<Offset> waypoints;
+  final List<Offset> displayPoints;
   final int? draggedIndex;
 
   FieldPainter({
     required this.robotPosition,
     required this.waypoints,
+    required this.displayPoints,
     this.draggedIndex,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final pointPaint = Paint()
-      ..color = Colors.cyanAccent
-      ..style = PaintingStyle.fill;
-    final selectedPaint = Paint()
-      ..color = Colors.orangeAccent
-      ..style = PaintingStyle.fill;
-    final pathPaint = Paint()
-      ..color = Colors.cyan.withValues(alpha: 0.0)
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-
     // Draw path
     if (waypoints.length > 1) {
       Path path = Path();
@@ -295,6 +323,13 @@ class FieldPainter extends CustomPainter {
         radius,
         (i == draggedIndex) ? selectedPaint : pointPaint,
       );
+    }
+
+    // Draw display points
+    for (int i = 0; i < displayPoints.length; i++) {
+      Offset px = _toScreen(waypoints[i], size);
+      double radius = (i == draggedIndex) ? 8.0 : 6.0;
+      canvas.drawCircle(px, radius, displayPointPaint);
     }
 
     // Draw Robot
