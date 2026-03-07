@@ -73,8 +73,8 @@ class _FieldViewWidgetState extends State<FieldViewWidget> {
         final posArray = currentVal.value;
         robotPosition = [
           posArray.isNotEmpty ? posArray[0] : 0.0,
-          posArray.length > 1 ? posArray[1] : 0.0,
-          posArray.length > 2 ? posArray[2] : 0.0,
+          posArray.isNotEmpty ? posArray[1] : 0.0,
+          posArray.length >= 2 ? posArray[2] : 0.0,
         ];
       }
     });
@@ -353,7 +353,7 @@ class FieldPainter extends CustomPainter {
   void _drawRobot(Canvas canvas, double x, double y, double rotation) {
     canvas.save();
     canvas.translate(x, y);
-    canvas.rotate(-rotation * math.pi / 180);
+    canvas.rotate(-rotation);
     canvas.drawRect(
       Rect.fromCenter(center: Offset.zero, width: 30, height: 30),
       Paint()..color = Colors.green,
