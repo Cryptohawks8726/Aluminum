@@ -201,6 +201,10 @@ class _MainDashboardState extends State<MainDashboard> {
                                   }
                                 },
                               ),
+                              BooleanDisplayTile(
+                                valueName: aimStateIsReachablePath,
+                                displayText: 'Turret Can Reach Hub:',
+                              ),
                             ],
                           ),
                         ),

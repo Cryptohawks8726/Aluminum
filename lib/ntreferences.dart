@@ -13,7 +13,8 @@ final NTInstance inst = kDebugMode
 // --- CONSTANTS ---
 // Define the path here so we can use it in field_view.dart too
 const String waypointsPath = '/SmartDashboard/FieldPointDisplay/setpoints';
-const String displayPointsPath = '/SmartDashboard/FieldPointDisplay/displayPoints';
+const String displayPointsPath =
+    '/SmartDashboard/FieldPointDisplay/displayPoints';
 const setZeroGyroPath = '/SmartDashboard/Subsystems/Robot/zeroGyroTrigger';
 
 final NTValueNotifier gameTimeNotifier = NTValueNotifier.fromName(
@@ -89,3 +90,5 @@ const String gameStatePath = '/SmartDashboard/Subsystems/Robot/gameState';
 const String intakeStatePath =
     '/SmartDashboard/Subsystems/Intake/currentCommandName';
 const String climbSetpointPath = '/SmartDashboard/Subsystems/Climb/Setpoint';
+const String aimStateIsReachablePath =
+    '/SmartDashboard/Subsystems/Turret Shooter/Target State/Is Reachable';
