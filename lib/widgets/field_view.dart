@@ -19,6 +19,10 @@ const double fieldOriginX = 255, fieldOriginY = 1920;
 const double fieldSizeX = 3672, fieldSizeY = 1781;
 const Size fieldImageSize = Size(4196, 2035);
 
+// 2026-specific turret constants
+const turretXOffsetFromRobotMeters = -0.140843;
+const turretYOffsetFromRobotMeters = -0.15621;
+
 final double fieldOriginRatioX = fieldOriginX / fieldImageSize.width;
 final double fieldOriginRatioY = fieldOriginY / fieldImageSize.height;
 final double fieldSizeRatioX = fieldSizeX / fieldImageSize.width;
@@ -343,34 +347,19 @@ class FieldPainter extends CustomPainter {
       Offset(robotPosition[0], robotPosition[1]),
       size,
     );
-    _drawRobot(canvas, robotPx.dx, robotPx.dy, robotPosition[2]);
+    _drawRobot(canvas, robotPx.dx, robotPx.dy, robotPosition[2], size);
   }
 
-  Offset _toScreen(Offset meters, Size size) {
-    final px =
-        (fieldOriginRatioX + meters.dx / fieldLengthMeters * fieldSizeRatioX) *
-        size.width;
-    final py =
-        (fieldOriginRatioY - meters.dy / fieldWidthMeters * fieldSizeRatioY) *
-        size.height;
-    return Offset(px, py);
-  }
-
-  void _drawRobot(Canvas canvas, double x, double y, double rotation) {
+  void _drawRobot(
+    Canvas canvas,
+    double x,
+    double y,
+    double rotation,
+    Size size,
+  ) {
     canvas.save();
     canvas.translate(x, y);
     canvas.rotate(-rotation);
-
-    // 2026 SPECIFIC!
-    canvas.drawArc(
-      Rect.fromCenter(center: Offset.zero, width: 250, height: 250),
-      (-90 - (180 - robotLeftTurretExtent)) * math.pi / 180.0,
-      (robotRightTurretExtent - robotLeftTurretExtent) * math.pi / 180.0,
-      true,
-      Paint()
-        ..color = Colors.lightBlueAccent.withAlpha(100)
-        ..style = PaintingStyle.fill,
-    );
 
     canvas.drawRect(
       Rect.fromCenter(center: Offset.zero, width: 30, height: 30),
@@ -391,6 +380,33 @@ class FieldPainter extends CustomPainter {
         ..close(),
       Paint()..color = Colors.yellow,
     );
+
+    // 2026 SPECIFIC! Aim arc.
+    // I did this wrong the first time so easy fix is to just 180 flip it ☠️
+    // plus it needs to be offset a bit
+    var turretOffset = Offset(
+      turretXOffsetFromRobotMeters /
+          fieldLengthMeters *
+          fieldSizeRatioX *
+          size.width,
+      turretYOffsetFromRobotMeters /
+          fieldWidthMeters *
+          fieldSizeRatioY *
+          size.height,
+    );
+    canvas.translate(turretOffset.dx, turretOffset.dy);
+    print(turretOffset);
+    canvas.rotate(math.pi);
+    canvas.drawArc(
+      Rect.fromCenter(center: Offset.zero, width: 250, height: 250),
+      (-90 - (180 - robotLeftTurretExtent)) * math.pi / 180.0,
+      (robotRightTurretExtent - robotLeftTurretExtent) * math.pi / 180.0,
+      true,
+      Paint()
+        ..color = Colors.lightBlueAccent.withAlpha(100)
+        ..style = PaintingStyle.fill,
+    );
+
     canvas.restore();
   }
 
@@ -399,4 +415,14 @@ class FieldPainter extends CustomPainter {
       old.robotPosition != robotPosition ||
       old.waypoints != waypoints ||
       old.draggedIndex != draggedIndex;
+}
+
+Offset _toScreen(Offset meters, Size size) {
+  final px =
+      (fieldOriginRatioX + meters.dx / fieldLengthMeters * fieldSizeRatioX) *
+      size.width;
+  final py =
+      (fieldOriginRatioY - meters.dy / fieldWidthMeters * fieldSizeRatioY) *
+      size.height;
+  return Offset(px, py);
 }
