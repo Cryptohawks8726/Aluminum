@@ -17,6 +17,8 @@ const Size fieldImageSize = Size(4196, 2035);
 // 2026-specific turret constants
 const turretXOffsetFromRobotMeters = -0.140843;
 const turretYOffsetFromRobotMeters = -0.15621;
+const double robotLeftTurretExtent = 41;
+const double robotRightTurretExtent = 320;
 
 final double fieldOriginRatioX = fieldOriginX / fieldImageSize.width;
 final double fieldOriginRatioY = fieldOriginY / fieldImageSize.height;
