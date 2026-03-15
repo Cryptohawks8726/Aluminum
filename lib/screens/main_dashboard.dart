@@ -29,7 +29,7 @@ class _MainDashboardState extends State<MainDashboard> {
         children: [
           Expanded(
             flex: 2,
-            // Container with both camera views
+            // Container with camera views
             child: Container(
               padding: EdgeInsets.fromLTRB(15.0, 10.0, 45.0, 10.0),
               decoration: BoxDecoration(
@@ -52,7 +52,7 @@ class _MainDashboardState extends State<MainDashboard> {
                             child: MjpegView(
                               fit: BoxFit.contain,
                               errorWidget: cameraErrorWidget,
-                              uri: Settings.getCameraURLs[0],
+                              uri: s,
                             ),
                           ),
                         );
@@ -180,25 +180,30 @@ class _MainDashboardState extends State<MainDashboard> {
                           flex: 1,
                           child: NTValuesDisplay(
                             children: [
-                              StringDisplayTile(
-                                valueName: gameStatePath,
-                                displayText: 'Game State:',
-                                color: theme.colorScheme.secondaryContainer,
+                              BooleanDisplayTile(
+                                valueName: '/FMSInfo/IsRedAlliance',
+                                displayText: 'Are we red?',
                               ),
-                              StringDisplayTile(
-                                valueName: intakeStatePath,
-                                displayText: 'Intake State:',
-                                color: theme.colorScheme.primaryContainer,
+                              NumberDisplayTile(
+                                valueName: '/SmartDashboard/gameTime',
+                                displayText: 'Game Time (Seconds):',
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primaryContainer,
                               ),
                               NumberColorChangeTile(
-                                valueName: climbSetpointPath,
-                                displayText: 'Climb Setpoint (green if up):',
-                                colorPicker: (double? v) {
-                                  if (v != null && v > 0.05) {
-                                    return Colors.green;
-                                  } else {
-                                    return Colors.redAccent;
+                                valueName: '/SmartDashboard/luniteCount',
+                                displayText: 'Lunite Count: ',
+                                decimalPlaces: 0,
+                                colorPicker: (double? n) {
+                                  if (n != null) {
+                                    if (n >= 3) {
+                                      return Colors.green;
+                                    } else if (n > 0) {
+                                      return Colors.yellow.shade800;
+                                    }
                                   }
+                                  return Colors.redAccent;
                                 },
                               ),
                               BooleanDisplayTile(
