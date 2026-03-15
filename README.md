@@ -84,3 +84,4 @@ all you need to do is change the number at the top of pubspec.yaml!
 - Support reading NT logs
 - Make logo.png a square so it doesn't look squished on windows
 - Improve performance? Seems to lag sometimes
+- Camera size settings

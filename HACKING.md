@@ -8,6 +8,7 @@ Guide for making code changes to the dashboard.
 - Use updateConnectionSettings or updateServerNamePort to connect to a specific NT server.
 - You can either connect to the rio via team number and port 5810, or to a sim using localhost:5810.
 - The full auto-generated FFI bindings are in ntcore/ntcore.g.dart. However, you should not use these directly from the main dashbaord code - instead use or implement wrapper methods in NTInstance which handle things like native memory/pointers.
+- ntcore/library_link.dart contains code to load the dynamic library at runtime. It's pretty simple.
 - The NTInstance keeps track of any entry handles in use to publish/subscribe to avoid memory leaks and keep publishers alive.
 - The NetworkTablesValue class is a sealed class with subclasses for each value type in NT. You can use a switch statement to check what type a value is or use an if statement to check if it matches a certain type. Also, the toString method will return an appropriate string representation of the value, whatever type it is.
 - The NTValueNotifier class is used to provide a ChangeNotifierProvider object which notifies listeners any time the value at a certain path in NetworkTables changes. Internally, NTInstance polls listeners and updates them in a loop, and this is how these updates are handed out.
@@ -24,6 +25,18 @@ Guide for making code changes to the dashboard.
 - util.dart contains some random things
 - settings.dart contains the logic for saving, loading, and accessing settings to/from json files.
 
+## The settings system
+This system is contained entirely inside lib/settings.dart.
+
+Settings are stored in a settings.json file in the app's config directory (the appropriate
+directory for the current platform is fetched by the app_dirs package). This is loaded into 
+the Settings class at startup inside an instane of the Settings class. In order to change the settings,
+you can first make a copy of the current settings using `Settings.copyInstance()`, modify it,
+and then overwrite the settings by calling `Settings.overwriteSettings()`. The Settings class
+is converted using dart:convert from the standard library into JSON automatically.
+
+Reading from settings is done using the static getters on Settings.
+
 ## Specific guides
 
 ### Displaying custom values on the dashboard
@@ -32,7 +45,7 @@ Guide for making code changes to the dashboard.
 - There are some useful widgets already added, such as ones which show a number, boolean, string, or a number and change color depending on the value.
 - These widgets are passed as a list in the constructor. This is called in lib/screens/main_dashboard.dart. You can search for NTValuesDisplay. The code from the general branch should have good examples.
 
-### Displaying custom status lights on the dashboard
+### Displaying custom status icons on the dashboard
 
 - Status lights are displayed on the right side of the dashboard screen.
 - Right now, they're all set up in lib/screens/main_dashboard.dart. This might get moved out to another widget later if it gets complex enough.
