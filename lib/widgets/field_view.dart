@@ -184,10 +184,16 @@ class _FieldViewWidgetState extends State<FieldViewWidget> {
   void _onPanUpdate(DragUpdateDetails details, Size scaledSize) {
     if (_draggedPointIndex != null) {
       setState(() {
-        customWaypoints[_draggedPointIndex!] = _pixelsToMeters(
-          details.localPosition,
-          scaledSize,
+        var pos = _pixelsToMeters(details.localPosition, scaledSize);
+
+        // clamp within field size
+        pos = Offset(math.max(pos.dx, 0), math.max(pos.dy, 0));
+        pos = Offset(
+          math.min(pos.dx, fieldWidthMeters),
+          math.min(pos.dy, fieldLengthMeters),
         );
+
+        customWaypoints[_draggedPointIndex!] = pos;
       });
     }
   }
@@ -392,7 +398,6 @@ class FieldPainter extends CustomPainter {
           size.height,
     );
     canvas.translate(turretOffset.dx, turretOffset.dy);
-    print(turretOffset);
     canvas.rotate(math.pi);
     canvas.drawArc(
       Rect.fromCenter(center: Offset.zero, width: 250, height: 250),
