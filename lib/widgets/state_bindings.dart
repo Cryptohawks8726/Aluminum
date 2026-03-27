@@ -6,10 +6,30 @@ import 'package:flutter/material.dart';
 /// Populate this with specific information for a given bot.
 /// TODO: add ability to customize this in settings instead
 const Map<String, _StateDescription> _stateDescriptions = {
-  'ExampleState': _StateDescription(
+  'GenericIdle': _StateDescription(
+    description: 'Full control over robot to drive and intake.',
+    bindingReminders: 'DPad climb, LB intake, RB -> shoot, X -> debug',
+  ),
+  'ShootState': _StateDescription(
     swerveEnabled: true,
-    description: 'Fill in a description of the state here...',
-    bindingReminders: 'A does something, B does another thing, etc...',
+    description: 'Driver control while shooting fuel.',
+    bindingReminders: 'LT agitate, LB intake, RB -> idle',
+  ),
+  'DebugMode': _StateDescription(
+    swerveEnabled: true,
+    description: 'Button overrides for controlling each subsystem.',
+    bindingReminders: 'lock in g',
+  ),
+  'Climb Descend': _StateDescription(
+    swerveEnabled: false,
+    description: 'Automatically lowering from climb and then driving out.',
+    bindingReminders: 'B - cancel',
+  ),
+  'Climb Ascend': _StateDescription(
+    swerveEnabled: false,
+    description:
+        'Drive to climb pose -> slow mode, press A to confirm -> climb.',
+    bindingReminders: 'B - cancel',
   ),
 };
 
