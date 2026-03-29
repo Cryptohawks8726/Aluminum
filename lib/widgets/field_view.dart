@@ -189,8 +189,8 @@ class _FieldViewWidgetState extends State<FieldViewWidget> {
         // clamp within field size
         pos = Offset(math.max(pos.dx, 0), math.max(pos.dy, 0));
         pos = Offset(
-          math.min(pos.dx, fieldWidthMeters),
-          math.min(pos.dy, fieldLengthMeters),
+          math.min(pos.dx, fieldLengthMeters),
+          math.min(pos.dy, fieldWidthMeters),
         );
 
         customWaypoints[_draggedPointIndex!] = pos;
