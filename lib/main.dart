@@ -3,12 +3,12 @@ import 'dart:ui' show Size;
 
 import 'package:aluminum/ntcore/values.dart';
 import 'package:aluminum/ntreferences.dart';
-import 'package:aluminum/screens/gallery_screen.dart';
+// import 'package:aluminum/screens/shh/gallery_screen.dart';
 import 'package:aluminum/screens/main_dashboard.dart';
 import 'package:aluminum/screens/debug_screen.dart';
 import 'package:aluminum/screens/motor_testing.dart';
 import 'package:aluminum/screens/settings_screen.dart';
-import 'package:aluminum/screens/soundboard.dart';
+// import 'package:aluminum/screens/shh/soundboard.dart';
 import 'package:aluminum/settings.dart';
 import 'package:aluminum/util.dart';
 import 'package:aluminum/widgets/auto_chooser.dart';
@@ -65,19 +65,9 @@ final pageList = <PageDestination>[
     page: MotorTestingScreen(),
   ),
   PageDestination(
-    name: 'Soundboard',
-    icon: Icon(Icons.audio_file),
-    page: SoundboardScreen(),
-  ),
-  PageDestination(
     name: 'Settings',
     icon: Icon(Icons.settings),
     page: SettingsScreen(),
-  ),
-  PageDestination(
-    name: 'Image Gallery',
-    icon: Icon(Icons.image),
-    page: GalleryScreen(),
   ),
 ];
 
