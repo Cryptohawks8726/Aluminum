@@ -85,3 +85,5 @@ all you need to do is change the number at the top of pubspec.yaml!
 - Make logo.png a square so it doesn't look squished on windows
 - Improve performance? Seems to lag sometimes
 - Camera size settings
+- Field Point Display for WPILIB 2027
+- Telemetry updates for WPILIB 2027
