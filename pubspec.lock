@@ -161,6 +161,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.11"
+  desktop_screen_recorder:
+    dependency: "direct main"
+    description:
+      name: desktop_screen_recorder
+      sha256: ebda9303ce48db975a6b2d1a6ef65e31566a27f97a0d006ee58ae08fd6c332ee
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   fake_async:
     dependency: transitive
     description:

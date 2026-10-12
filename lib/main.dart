@@ -15,6 +15,7 @@ import 'package:flutter/material.dart' hide Size;
 import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:desktop_screen_recorder/desktop_screen_recorder.dart';
 
 bool appIsExpanded = false;
 String versionString = '';
@@ -89,6 +90,7 @@ class DriverDashboard extends StatefulWidget {
 
 class _DriverDashboardState extends State<DriverDashboard> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _desktopScreenRecorderPlugin = DesktopScreenRecorder();
   int selectedIndex = 0;
 
   @override

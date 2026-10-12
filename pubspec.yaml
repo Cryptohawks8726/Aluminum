@@ -52,6 +52,7 @@ dependencies:
   internet_file: ^1.3.0
   archive: ^4.0.7
   ffmpeg_kit_flutter_minimal: ^6.0.8
+  desktop_screen_recorder: ^0.0.1
 
 dev_dependencies:
   flutter_test:
