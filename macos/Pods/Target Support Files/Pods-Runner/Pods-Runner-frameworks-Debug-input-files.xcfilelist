@@ -1,0 +1,7 @@
+${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh
+${BUILT_PRODUCTS_DIR}/audio_session/audio_session.framework
+${BUILT_PRODUCTS_DIR}/file_picker/file_picker.framework
+${BUILT_PRODUCTS_DIR}/just_audio/just_audio.framework
+${BUILT_PRODUCTS_DIR}/package_info_plus/package_info_plus.framework
+${BUILT_PRODUCTS_DIR}/screen_retriever_macos/screen_retriever_macos.framework
+${BUILT_PRODUCTS_DIR}/window_manager/window_manager.framework
