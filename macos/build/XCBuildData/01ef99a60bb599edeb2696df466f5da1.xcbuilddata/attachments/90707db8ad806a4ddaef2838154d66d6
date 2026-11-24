@@ -1,0 +1,16 @@
+{
+  "" : {
+    "const-values" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/screen_retriever_macos-primary.swiftconstvalues",
+    "dependencies" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/screen_retriever_macos-primary.d",
+    "diagnostics" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/screen_retriever_macos-primary.dia",
+    "emit-module-dependencies" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/screen_retriever_macos-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/screen_retriever_macos-primary-emit-module.dia",
+    "pch" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/screen_retriever_macos-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/screen_retriever_macos-primary.swiftdeps"
+  },
+  "/Users/ismailthangalvadi/.pub-cache/hosted/pub.dev/screen_retriever_macos-0.2.0/macos/Classes/ScreenRetrieverMacosPlugin.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/ScreenRetrieverMacosPlugin.o",
+    "llvm-bc" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/ScreenRetrieverMacosPlugin.bc",
+    "object" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/screen_retriever_macos.build/Objects-normal/arm64/ScreenRetrieverMacosPlugin.o"
+  }
+}

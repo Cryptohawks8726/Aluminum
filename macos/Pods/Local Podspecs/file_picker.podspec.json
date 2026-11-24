@@ -21,7 +21,7 @@
     "FlutterMacOS": []
   },
   "platforms": {
-    "osx": "10.13"
+    "osx": "27.0"
   },
   "pod_target_xcconfig": {
     "DEFINES_MODULE": "YES"

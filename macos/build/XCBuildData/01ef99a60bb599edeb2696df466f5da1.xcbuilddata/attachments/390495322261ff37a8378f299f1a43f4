@@ -1,0 +1,21 @@
+{
+  "" : {
+    "const-values" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/window_manager-primary.swiftconstvalues",
+    "dependencies" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/window_manager-primary.d",
+    "diagnostics" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/window_manager-primary.dia",
+    "emit-module-dependencies" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/window_manager-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/window_manager-primary-emit-module.dia",
+    "pch" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/window_manager-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/window_manager-primary.swiftdeps"
+  },
+  "/Users/ismailthangalvadi/.pub-cache/hosted/pub.dev/window_manager-0.5.1/macos/window_manager/Sources/window_manager/WindowManager.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release/window_manager.build/Objects-normal/x86_64/WindowManager.o",
+    "llvm-bc" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/WindowManager.bc",
+    "object" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/WindowManager.o"
+  },
+  "/Users/ismailthangalvadi/.pub-cache/hosted/pub.dev/window_manager-0.5.1/macos/window_manager/Sources/window_manager/WindowManagerPlugin.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release/window_manager.build/Objects-normal/x86_64/WindowManagerPlugin.o",
+    "llvm-bc" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/WindowManagerPlugin.bc",
+    "object" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/window_manager.build/Objects-normal/x86_64/WindowManagerPlugin.o"
+  }
+}

@@ -40,14 +40,14 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
-  audio_session: eaca2512cf2b39212d724f35d11f46180ad3a33e
-  file_picker: 7584aae6fa07a041af2b36a2655122d42f578c1a
+  audio_session: 58b7d96b0e4a7fc23d45c14344801c929a9e103e
+  file_picker: f3ba5c4854ade42463accbdf1ede921d24ae9199
   FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
-  just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
-  package_info_plus: f0052d280d17aa382b932f399edf32507174e870
-  screen_retriever_macos: 452e51764a9e1cdb74b3c541238795849f21557f
-  window_manager: b729e31d38fb04905235df9ea896128991cad99e
+  just_audio: 766a413288bb2457e0e0dc9d430adddeab5fffe6
+  package_info_plus: 580f992fe93c20b3e178c34cbfc7d04dba764004
+  screen_retriever_macos: d0184f96e67b90b074e1ce82e5dcd2364bb69397
+  window_manager: d645cb6edae6f7edf27532453882d16b90bbe916
 
-PODFILE CHECKSUM: 54d867c82ac51cbd61b565781b9fada492027009
+PODFILE CHECKSUM: f812b22ad5025189f23bb23c0da20011d547f06e
 
 COCOAPODS: 1.16.2

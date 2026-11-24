@@ -1,0 +1,16 @@
+{
+  "" : {
+    "const-values" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/file_picker.build/Objects-normal/arm64/file_picker-primary.swiftconstvalues",
+    "dependencies" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/file_picker.build/Objects-normal/arm64/file_picker-primary.d",
+    "diagnostics" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/file_picker.build/Objects-normal/arm64/file_picker-primary.dia",
+    "emit-module-dependencies" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/file_picker.build/Objects-normal/arm64/file_picker-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/file_picker.build/Objects-normal/arm64/file_picker-primary-emit-module.dia",
+    "pch" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/file_picker.build/Objects-normal/arm64/file_picker-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/file_picker.build/Objects-normal/arm64/file_picker-primary.swiftdeps"
+  },
+  "/Users/ismailthangalvadi/.pub-cache/hosted/pub.dev/file_picker-10.3.8/macos/file_picker/Sources/file_picker/FilePickerPlugin.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release/file_picker.build/Objects-normal/arm64/FilePickerPlugin.o",
+    "llvm-bc" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/file_picker.build/Objects-normal/arm64/FilePickerPlugin.bc",
+    "object" : "/Users/ismailthangalvadi/Downloads/Projects/Github/FRC/WebUI/DriverDashboard/macos/build/Pods.build/Release/file_picker.build/Objects-normal/arm64/FilePickerPlugin.o"
+  }
+}
